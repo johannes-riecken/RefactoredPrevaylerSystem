@@ -1,0 +1,170 @@
+In ThreadPersistent around teh sync call there is a try/catch.
+there is one try catch in teh original code too. just 
+making a note of it.
+
+Issue: How to access a super variable inside an aspect 
+that defines functions for a child class? Result: 
+Make a helper function on the child class in that aspect, 
+in there make call to super. Then from the original 
+cross-cutting point, call that helper function. 
+
+
+For ClientPublisher, receiveTransactionFromServer refactoring of the subscribe method, I had to 
+introduce 2 local functions to access joinpoints of hte setting of local variables. 
+
+Setting of local variables: 
+If pointcut uses a function call, we can use that i.e. after call advice. 
+Otherwise need to declare a function. 
+When we need the new value of the variable set, we should first refactor it to a local function. 
+
+		
+
+In TransientLogger and PersistentLogger update APIs, could not access local variables, so 
+get value after returning. 
+
+In ThreadingAspectForDurableStream in, void around(final DurableOutputStream d) : startSync(d) made 
+DurableOutputStream a final variable. 
+
+For refactoring  Abstract publisher, i had to move this line _subscribers = new LinkedList(); into its constructor
+otherwise it was not being initilaized by just having this field in teh class. 
+
+When there are crosscutting points for a class etc. in an aspect and we want to crosscut
+inside the aspect; then target(factory) etc does not work. You need to get
+the variable from some other place. EX: ClockPublisher --- Many such points in ClockPublisher
+
+In Abstract publisher there is the following API: 
+	protected synchronized void notifySubscribers(Transaction transaction) {
+This is called from within CentralPublisher by calling super.notifySubscribers. I was
+trying to capture this pointcut by saying call(* AbstractPublisher.notifySubscribers);
+but this was not working. I changed it to execution(* AbstractPublisher.notifySubscribers);
+but still would not work, ultimately i got the joinpoint by getting a different
+pointcut avoiding AbstractPublisher altogether. 
+
+If I declare my own constructor in an aspect and call another default 
+constructor from that constructor I cannto declare a System.out.println() before call 
+to the previous constructor. 
+
+In TransientLogger crosscutting, I first had 2 pointcuts to capture the "add" point. 
+//    pointcut inlog(TransientLogger l, Transaction t) :
+/        target(l) && args(t) && withincode(public void log(Transaction) );
+//pointcut logadd() :  call(public boolean add(Object));
+But this would show outline, but not crosscut in teh actual code. I replaced
+this by: 
+pointcut logadd(TransientLogger t) : this(t) && call(public boolean add(Object));
+and it works. For some reason both "withincode and call" are not working. 
+
+Important issue: When I Am within a certain method and I want to get a pointcut specific to that 
+method call, I am diong: 
+after(TransactionSubscriber s, SimpleInputStream st) returning(Object o) : 
+	   cflow(inrecover(s)) && readObjectCall(st) {
+		System.out.println("In persistent aspect setting entry" + o);
+		entry = (TransactionTimestamp)o;
+}
+But this does not work. 
+
+
+Importatnt point inner thread class: in ServerConneciton, inside the RUN function wanted to capture the 
+point of writing time to stream, this is an Inner class issue. 
+_______________________
+To Ponder:
+_______
+In ClockPublisher this is not being captured properly: 	
+void around(CentralPublisher p, Transaction t) : cflow(inNotify(p, t)) && callNotify() {
+with or without cflow
+	
+In ClockPersistent: I had: 
+pointcut inrecover(TransactionSubscriber s) : 
+ withincode(private long PersistentLogger.recoverPendingTransactions(TransactionSubscriber, ..))
+&& args(s);
+pointcut receiveCall() : call(public void TransactionSubscriber.receive(Transaction)) ;
+void around(TransactionSubscriber s) : 
+	   inrecover(s) &&  receiveCall() { 
+	    System.out.println("In persistent aspect GETTING entry");
+//		s.receive(entry.transaction(), entry.timestamp());
+}
+But it was not being captured properly. I modified it to be: 
+    pointcut inrecover() : withincode(private long PersistentLogger.recoverPendingTransactions(..));	
+	pointcut receiveCall(TransactionSubscriber s) :target(s) && call(public void TransactionSubscriber.receive(Transaction)) ;
+	void around(TransactionSubscriber s) : 
+	     inrecover() && receiveCall(s) {
+		    System.out.println("In persistent aspect GETTING entry");
+			s.receive(entry.transaction(), entry.timestamp());
+	}
+
+and it works. 
+
+In ClockPrevayler I had:
+ pointcut inreceive(TransactionSubscriber s) : target(s) && withincode(public void receive(Transaction)); 
+ pointcut callexec(Transaction tr): target(tr) &&  call(public void executeOn(Object));
+ void around(Transaction tr2, TransactionSubscriber s) :
+	   	inreceive(s) && callexec(tr2) {
+		    System.out.println("Calling execute on Subscriber from PIMPL1" + dateex);
+			tr2.executeOn(prevaylerImpl._prevalentSystem, dateex);
+		}
+This would give me "run-test" issue. I had to change it to: 
+pointcut inreceive() :withincode(public void TransactionSubscriber.receive(Transaction)); 
+pointcut callexec(Transaction tr): target(tr) &&  call(public void executeOn(Object));
+void around(Transaction tr2) : 	inreceive() && callexec(tr2) {
+		    System.out.println("Calling execute on Subscriber from PIMPL1" + dateex);
+			tr2.executeOn(prevaylerImpl._prevalentSystem, dateex);
+}
+and it worked!
+
+
+In ClockPersistent: I had follwoing, but cflow gives 2 points one in Persistent logger and one in transient
+i only want the persistent, how to avoid it using cflwo?
+ pointcut inLog(PersistentLogger p, Transaction tr, Date ex) : this(p) && args(tr,ex)
+    	&& withincode(public void PersistentLogger.log(Transaction,Date)); 
+
+    pointcut callTransactionStamp() : call(TransactionTimestamp.new(Transaction));
+
+    TransactionTimestamp around(PersistentLogger p, Transaction tr, Date ex) : 
+        callTransactionStamp()&& cflow(inLog(p, tr,ex)) {
+	    System.out.println("Calling Transaction Constructor in PL1");
+		return new TransactionTimestamp(tr, ex);
+	}
+
+
+
+
+PATTERNS: 
+In ClockPersistent, Same thing in TransientClock, in Publisher
+ public void PersistentLogger.log(Transaction transaction, Date executionTime) {
+    	System.out.println("LOGGIGNG");
+    	log(transaction);
+    }
+    
+    Date logDate;
+    pointcut logCall(Date ex) : args(..,ex) &&  call(public void PersistentLogger.log(Transaction,Date));
+    before(Date ex) : logCall(ex) {
+        logDate = ex;
+    }
+
+__________________________
+WORKAROUNDs try to revisit
+__________________________
+In ClockPrevayler, i wanted to capture call to subscriber() in PrevaylerImpl constructor. 
+i had the following, it works fine normally, but in Snapshot the point is 
+not bieng hit, why? I did a workaruond by capturing the prevaylerimpl object
+from another point in the constructor. 
+pointcut subReceive() : call(private TransactionSubscriber PrevaylerImpl.subscriber()) ;
+ before(PrevaylerImpl p): implConstr(p) && subReceive() {
+	      System.out.println("Setting prevaylerIMPL");
+	      prevaylerImpl = p;
+  }
+  pointcut implConstr(PrevaylerImpl p) : this(p)&& withincode (PrevaylerImpl.new(..));
+  
+  
+  
+In ClientPublisher, i wanted to remove the call to timestamp setting and _clock.advanceTo, dont know
+how to capture those points. Work around: added a null function getTimeStamp() and then 
+put advice around its execution. 
+	
+
+	
+-----------
+COME BACK TO:
+-----------
+
+In  BankFrame Class, I have commented calls to clock() as they are in thread, once
+i have refactored the thread code, need to come back to it. 

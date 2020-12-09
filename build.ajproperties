@@ -1,0 +1,3 @@
+src.includes = /,\
+               org/prevayler/demos/demo2/
+src.excludes = org/prevayler/demos/

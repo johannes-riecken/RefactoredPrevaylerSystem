@@ -1,0 +1,4 @@
+following are some common problems i may see:
+
+1) Class cast exception in replica. i think this has to do with the synchronized advice, the 
+fact that i have made the around advice return an "Object" and made it so generic. 

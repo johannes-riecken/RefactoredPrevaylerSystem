@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="ASPECTJRT_LIB"/>
+	<classpathentry kind="lib" path="skaringa-r2p6.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.0.3.jar"/>
+	<classpathentry kind="lib" path="junit-3.8.1.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
