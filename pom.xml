@@ -9,7 +9,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.6.8</version>
+            <version>1.9.6</version>
         </dependency>
     </dependencies>
     <build>
@@ -41,6 +41,14 @@
                 </executions>
                 <configuration>
                     <mainclass>org.prevayler.demos.demo1.Main</mainclass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
         </plugins>
