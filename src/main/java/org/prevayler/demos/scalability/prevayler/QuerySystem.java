@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.prevayler.demos.scalability.Record;
+import org.prevayler.demos.scalability.PrevaylerRecord;
 import org.prevayler.demos.scalability.RecordIterator;
 
 class QuerySystem implements ScalabilitySystem {
@@ -31,7 +31,7 @@ class QuerySystem implements ScalabilitySystem {
 	}
 
 
-	private void put(Record newRecord) {
+	private void put(PrevaylerRecord newRecord) {
 		List records = queryByName(newRecord.getName());
 		if (records == null) {
 			records = new ArrayList();

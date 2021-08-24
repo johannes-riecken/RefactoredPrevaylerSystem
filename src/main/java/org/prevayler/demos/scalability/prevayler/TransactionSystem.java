@@ -3,14 +3,14 @@ package org.prevayler.demos.scalability.prevayler;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.prevayler.demos.scalability.Record;
+import org.prevayler.demos.scalability.PrevaylerRecord;
 import org.prevayler.demos.scalability.RecordIterator;
 
 class TransactionSystem implements ScalabilitySystem {
 
 	private final Map recordsById = new HashMap();
 
-	public void performTransaction(Record recordToInsert, Record recordToUpdate, long idToDelete) {
+	public void performTransaction(PrevaylerRecord recordToInsert, PrevaylerRecord recordToUpdate, long idToDelete) {
 		synchronized (recordsById) {
 			put(recordToInsert);
 			put(recordToUpdate);
@@ -18,7 +18,7 @@ class TransactionSystem implements ScalabilitySystem {
 		}
 	}
 
-	private Object put(Record newRecord) {
+	private Object put(PrevaylerRecord newRecord) {
 		Object key = new Long(newRecord.getId());
 		return recordsById.put(key, newRecord);
 	}

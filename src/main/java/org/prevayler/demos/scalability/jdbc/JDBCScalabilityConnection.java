@@ -25,7 +25,7 @@ abstract class JDBCScalabilityConnection {
 	protected abstract String table();
 
 
-	protected void insert(Record recordToInsert) {
+	protected void insert(PrevaylerRecord recordToInsert) {
 		try {
 			insertStatement.setLong(1,recordToInsert.getId());
 			insertStatement.setString(2,recordToInsert.getName());

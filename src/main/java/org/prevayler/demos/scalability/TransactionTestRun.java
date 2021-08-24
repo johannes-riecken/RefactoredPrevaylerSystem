@@ -33,9 +33,9 @@ public class TransactionTestRun extends ScalabilityTestRun {
 	* Every time 500000 operations have completed, all ranges are shifted up by 500000.
 	*/
 	protected void executeOperation(Object connection, long operationSequence) {
-		Record recordToInsert = new Record(numberOfObjects + operationSequence);
+		PrevaylerRecord recordToInsert = new PrevaylerRecord(numberOfObjects + operationSequence);
 		long idToDelete = spreadId(operationSequence);
-		Record recordToUpdate = new Record(halfTheObjects + idToDelete);
+		PrevaylerRecord recordToUpdate = new PrevaylerRecord(halfTheObjects + idToDelete);
 
 		((TransactionConnection)connection).performTransaction(recordToInsert, recordToUpdate, idToDelete);
 	}

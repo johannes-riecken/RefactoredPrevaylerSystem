@@ -2,7 +2,7 @@ package org.prevayler.demos.scalability;
 
 import java.io.Serializable;
 
-/** Generates Record objects with ids from 0 to numberOfRecords - 1.
+/** Generates PrevaylerRecord objects with ids from 0 to numberOfRecords - 1.
 */
 public class RecordIterator implements Serializable {
 
@@ -18,9 +18,9 @@ public class RecordIterator implements Serializable {
 		return nextRecordId < numberOfRecords;
 	}
 
-	public Record next() {
+	public PrevaylerRecord next() {
 		indicateProgress();
-		return new Record(nextRecordId++);
+		return new PrevaylerRecord(nextRecordId++);
 	}
 
 	private void indicateProgress() {

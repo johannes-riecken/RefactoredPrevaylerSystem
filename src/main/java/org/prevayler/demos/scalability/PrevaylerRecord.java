@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.math.BigDecimal;
 
-public class Record implements Serializable {
+public class PrevaylerRecord implements Serializable {
 
 	static private final Random random = new Random();
 	static private final String largeString = generateLargeString();
@@ -18,7 +18,7 @@ public class Record implements Serializable {
 	private final long date2;
 
 
-	public Record(long id, String name, String string1, BigDecimal bigDecimal1, BigDecimal bigDecimal2, Date date1, Date date2) {
+	public PrevaylerRecord(long id, String name, String string1, BigDecimal bigDecimal1, BigDecimal bigDecimal2, Date date1, Date date2) {
 		this.id = id;
 		this.name = name;
 		this.string1 = string1;
@@ -28,7 +28,7 @@ public class Record implements Serializable {
 		this.date2 = date2.getTime();
 	}
 
-	Record(long id) {
+	PrevaylerRecord(long id) {
 		this.id = id;
 		name = "NAME" + (id % 10000);
 

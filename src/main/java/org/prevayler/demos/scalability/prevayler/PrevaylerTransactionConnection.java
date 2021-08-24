@@ -11,7 +11,7 @@ class PrevaylerTransactionConnection implements TransactionConnection {
 		this.prevayler = prevayler;
 	}
 
-	public void performTransaction(Record recordToInsert, Record recordToUpdate, long idToDelete) {
+	public void performTransaction(PrevaylerRecord recordToInsert, PrevaylerRecord recordToUpdate, long idToDelete) {
 		try {
 
 			prevayler.execute(new TestTransaction(recordToInsert, recordToUpdate, idToDelete));

@@ -25,7 +25,7 @@ class JDBCTransactionConnection extends JDBCScalabilityConnection implements Tra
 	}
 
 
-	public void performTransaction(Record recordToInsert, Record recordToUpdate, long idToDelete) {
+	public void performTransaction(PrevaylerRecord recordToInsert, PrevaylerRecord recordToUpdate, long idToDelete) {
 		insert(recordToInsert);
 		update(recordToUpdate);
 		delete(idToDelete);
@@ -38,7 +38,7 @@ class JDBCTransactionConnection extends JDBCScalabilityConnection implements Tra
   	}
 
 
-	private void update(Record recordToUpdate) {
+	private void update(PrevaylerRecord recordToUpdate) {
 		try {
 			updateStatement.setString(1,recordToUpdate.getName());
 			updateStatement.setString(2,recordToUpdate.getString1());

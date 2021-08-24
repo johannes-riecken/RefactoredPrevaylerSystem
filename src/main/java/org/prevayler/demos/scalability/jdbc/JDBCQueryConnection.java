@@ -30,7 +30,7 @@ class JDBCQueryConnection extends JDBCScalabilityConnection implements QueryConn
 			ResultSet resultSet = selectStatement.executeQuery();
 
 			while (resultSet.next()) {
-				list.add(new Record(resultSet.getLong(1), name, resultSet.getString(2), resultSet.getBigDecimal(3), resultSet.getBigDecimal(4), resultSet.getDate(5), resultSet.getDate(6)));
+				list.add(new PrevaylerRecord(resultSet.getLong(1), name, resultSet.getString(2), resultSet.getBigDecimal(3), resultSet.getBigDecimal(4), resultSet.getDate(5), resultSet.getDate(6)));
 			}
 
 		} catch (SQLException sqlex) {
