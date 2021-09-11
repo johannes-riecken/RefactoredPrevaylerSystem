@@ -7,6 +7,7 @@ package org.prevayler;
 import java.io.IOException;
 import java.io.Serializable;
 
+import org.prevayler.demos.demo1.NumberKeeper;
 import org.prevayler.implementation.PrevaylerImpl;
 //import org.prevayler.implementation.clock.MachineClock;
 //import org.prevayler.implementation.logging.PersistentLogger;
@@ -110,6 +111,11 @@ public class PrevaylerFactory {
 			e.printStackTrace(); //Transient Prevayler creation should not fail.
 			return null;
 		}
+	}
+
+	// TODO
+	public static <NumberKeeper> Prevayler createPrevayler(NumberKeeper numberKeeper, String demo1) throws IOException, ClassNotFoundException {
+		return new PrevaylerImpl(null, null);
 	}
 
 

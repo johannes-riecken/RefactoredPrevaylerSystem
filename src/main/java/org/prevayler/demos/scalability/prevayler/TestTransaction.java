@@ -20,4 +20,10 @@ class TestTransaction implements Transaction {
 	public void executeOn(Object system, Date ignored) {
 		((TransactionSystem)system).performTransaction(recordToInsert, recordToUpdate, idToDelete);
 	}
+
+	// TODO
+	@Override
+	public void executeOn(Object prevalentSystem) {
+
+	}
 }

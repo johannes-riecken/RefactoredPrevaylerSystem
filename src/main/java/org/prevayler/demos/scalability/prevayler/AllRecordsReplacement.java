@@ -14,4 +14,10 @@ class AllRecordsReplacement implements Transaction {
 	public void executeOn(Object system, Date ignored) {
 		((ScalabilitySystem)system).replaceAllRecords(new RecordIterator(_records));
 	}
+
+	// TODO
+	@Override
+	public void executeOn(Object prevalentSystem) {
+
+	}
 }

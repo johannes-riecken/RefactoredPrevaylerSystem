@@ -20,4 +20,10 @@ class NumberStorageTransaction implements Transaction {
 	public void executeOn(Object prevalentSystem, Date ignored) {
 		((NumberKeeper)prevalentSystem).keep(_numberToKeep);
 	}
+
+	// TODO
+	@Override
+	public void executeOn(Object prevalentSystem) {
+
+	}
 }
