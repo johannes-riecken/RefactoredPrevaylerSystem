@@ -5,7 +5,7 @@ import java.util.*;
 public class Bank implements java.io.Serializable {
 
 	private long nextAccountNumber = 1;
-	private Map accountsByNumber = new HashMap();
+	private final Map accountsByNumber = new HashMap();
 	private transient BankListener bankListener;
     
 	public Account createAccount(String holder) throws Account.InvalidHolder {

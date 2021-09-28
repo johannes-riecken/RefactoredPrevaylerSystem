@@ -18,6 +18,6 @@ public interface TransactionWithQuery extends Serializable {
 	 * @param executionTime The time at which this TransactionWithQuery is being executed. Every Transaction executes completely within a single moment in time. Logically, a Prevalent System's time does not pass during the execution of a Transaction.
 	 */
 	//public Object executeAndQuery(Object prevalentSystem, Date executionTime) throws Exception;
-    public Object executeAndQuery(Object prevalentSystem) throws Exception;
+	Object executeAndQuery(Object prevalentSystem) throws Exception;
 	
 }

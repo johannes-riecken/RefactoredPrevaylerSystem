@@ -12,7 +12,7 @@ import org.prevayler.demos.scalability.RecordIterator;
 
 class QuerySystem implements ScalabilitySystem {
 
-	private Map recordsByName = new HashMap();
+	private final Map recordsByName = new HashMap();
 
 
 	public List queryByName(String name) {

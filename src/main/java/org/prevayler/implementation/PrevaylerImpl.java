@@ -24,7 +24,7 @@ public class PrevaylerImpl implements Prevayler {
 
     //TODO:IRUM> made these unfinal.
 	//private final Object _prevalentSystem;
-    private Object _prevalentSystem;
+    private final Object _prevalentSystem;
 	private long _systemVersion = 0;
 
 	//private final Clock _clock;
@@ -37,7 +37,7 @@ public class PrevaylerImpl implements Prevayler {
 
     //TODO:IRUM> made these unfinal.
 	//private final TransactionPublisher _publisher;
-	private TransactionPublisher _publisher;
+	private final TransactionPublisher _publisher;
 	private boolean _ignoreRuntimeExceptions;
 
 

@@ -11,6 +11,6 @@ public interface TransactionSubscriber {
 
 	//public void receive(Transaction transaction, Date timestamp);
     
-    public void receive(Transaction transaction);
+    void receive(Transaction transaction);
 
 }

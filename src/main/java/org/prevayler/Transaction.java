@@ -16,6 +16,6 @@ public interface Transaction extends Serializable {
 	 * @param executionTime The time at which this Transaction is being executed. Every Transaction executes completely within a single moment in time. Logically, a Prevalent System's time does not pass during the execution of a Transaction.
 	 */
 	//public void executeOn(Object prevalentSystem, Date executionTime);
-    public void executeOn(Object prevalentSystem);
+	void executeOn(Object prevalentSystem);
 
 }

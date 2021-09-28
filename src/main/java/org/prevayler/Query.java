@@ -18,6 +18,6 @@ public interface Query {
 	 * @throws Exception Any Exception encountered by this Query.
 	 */
 	//public Object query(Object prevalentSystem, Date executionTime) throws Exception;
-    public Object query(Object prevalentSystem) throws Exception;
+	Object query(Object prevalentSystem) throws Exception;
 
 }

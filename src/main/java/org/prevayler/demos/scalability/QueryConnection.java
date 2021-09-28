@@ -6,6 +6,6 @@ public interface QueryConnection {
 
 	/** Returns the List of all PrevaylerRecord with the given name.
 	*/
-	public List queryByName(String name);
+    List queryByName(String name);
 
 }

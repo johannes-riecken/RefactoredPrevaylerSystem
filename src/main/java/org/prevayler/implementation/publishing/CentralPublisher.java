@@ -19,7 +19,7 @@ public class CentralPublisher extends AbstractPublisher {
     //TODO: Made this unfinal
 //	private final PausableClock _pausableClock;
 	//private final TransactionCensor _censor;
-	private  TransactionLogger _logger;
+	private final TransactionLogger _logger;
 
 //	private final Object _pendingSubscriptionMonitor = new Object();
 //	private volatile int _pendingPublications = 0;

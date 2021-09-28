@@ -51,9 +51,9 @@ abstract class AccountFrame extends JInternalFrame {
 	protected void addFields(Box fieldBox) {
 		fieldBox.add(labelContainer("Holder"));
 		fieldBox.add(holderField);
-	};
-		
-	private JPanel buttonPanel() {
+	}
+
+    private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
 		addButtons(buttonPanel);
 		return buttonPanel;

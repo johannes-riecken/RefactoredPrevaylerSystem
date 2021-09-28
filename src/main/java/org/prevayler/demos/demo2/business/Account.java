@@ -7,7 +7,7 @@ public class Account implements java.io.Serializable {
 	private long number;
 	private String holder;
 	private long balance = 0;
-	private List transactionHistory = new ArrayList();
+	private final List transactionHistory = new ArrayList();
 	private transient Set listeners;
     
     private Account() {
