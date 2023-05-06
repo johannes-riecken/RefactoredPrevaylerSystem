@@ -18,7 +18,7 @@ public class StrictTransactionCensor implements TransactionCensor {
 	private Object _royalFoodTaster;
 	private final SnapshotManager _snapshotManager;
 
-	
+
 	public StrictTransactionCensor(SnapshotManager snapshotManager) {
 		_snapshotManager = snapshotManager;
 		_king = _snapshotManager.recoveredPrevalentSystem();
@@ -37,12 +37,12 @@ public class StrictTransactionCensor implements TransactionCensor {
 //			throw error;
 //		}
 //	}
-	
+
 	public void approve(Transaction transaction) throws RuntimeException, Error {
 		try {
 		    Transaction transactionCopy = (Transaction)_snapshotManager.deepCopy(transaction, "Unable to produce a copy of the transaction for trying out before applying it to the real system.");
 		//	transactionCopy.executeOn(royalFoodTaster(), executionTime);
-			transactionCopy.executeOn(royalFoodTaster());			
+			transactionCopy.executeOn(royalFoodTaster());
 		} catch (RuntimeException rx) {
 			letTheFoodTasterDie();
 			throw rx;

@@ -10,7 +10,7 @@ package org.prevayler;
  * @see org.prevayler.Prevayler#execute(Query)
  */
 public interface Query {
-	
+
 	/**
 	 * @param prevalentSystem The Prevalent System to be queried.
 	 * @param executionTime The "current" time.

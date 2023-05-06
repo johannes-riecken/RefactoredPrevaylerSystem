@@ -9,15 +9,15 @@ public class Account implements java.io.Serializable {
 	private long balance = 0;
 	private final List transactionHistory = new ArrayList();
 	private transient Set listeners;
-    
+
     private Account() {
     }
-    
+
 	Account(long number, String holder) throws InvalidHolder {
 		this.number = number;
 		holder(holder);
 	}
-    
+
 	public long number() {
 		return number;
 	}
@@ -29,7 +29,7 @@ public class Account implements java.io.Serializable {
 	public String numberString() {
 		return numberString(number);
 	}
-	
+
 	static String numberString(long number) {
 		return (new java.text.DecimalFormat("00000").format(number));
 	}
@@ -43,7 +43,7 @@ public class Account implements java.io.Serializable {
 		this.holder = holder;
 		notifyListeners();
 	}
-    
+
 	public long balance() {
 		return balance;
 	}
@@ -67,20 +67,20 @@ public class Account implements java.io.Serializable {
 		verify(amount);
         register(-amount);
 	}
-	
-	
+
+
 //    private void register(long amount, Date timestamp) {
 //		balance += amount;
 //        transactionHistory.add(new AccountEntry(amount, timestamp));
 //		notifyListeners();
 //	}
-    
+
 	private void register(long amount) {
 		balance += amount;
         transactionHistory.add(new AccountEntry(amount));
 		notifyListeners();
 	}
-	
+
 	private void verify(long amount) throws InvalidAmount {
 		if (amount <= 0) throw new InvalidAmount("Amount must be greater than zero.");
 		if (amount > 10000) throw new InvalidAmount("Amount maximum (10000) exceeded.");
@@ -97,12 +97,12 @@ public class Account implements java.io.Serializable {
 	public void removeAccountListener(AccountListener listener) {
 		listeners().remove(listener);
 	}
-	
+
 	private Set listeners() {
 		if (listeners == null) listeners = new HashSet();
 		return listeners;
 	}
-	
+
 	private void notifyListeners() {
 		Iterator it = listeners().iterator();
 		while (it.hasNext()) {

@@ -28,10 +28,10 @@ public class PrevaylerImpl implements Prevayler {
 	private long _systemVersion = 0;
 
 	//private final Clock _clock;
-	
+
 	//TODO:IRUM> made these unfinal.
 	//private  Clock _clock;
-	
+
 
 	//private final SnapshotManager _snapshotManager;
 
@@ -59,8 +59,8 @@ public class PrevaylerImpl implements Prevayler {
 //	}
 
 	public PrevaylerImpl(TransactionPublisher transactionPublisher, Object prevalentSystem) throws IOException, ClassNotFoundException {
-	    
-	    
+
+
 	    _prevalentSystem = prevalentSystem;
 		_publisher = transactionPublisher;
 		//_clock = _publisher.clock();
@@ -123,12 +123,12 @@ public class PrevaylerImpl implements Prevayler {
 		try {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			//writeSnapshot(original, out);
-			
+
 			ObjectOutputStream stream = new ObjectOutputStream(out);
 	        stream.writeObject(original);
-	        
+
 		//	return readSnapshot(new ByteArrayInputStream(out.toByteArray()));
-	        
+
 	        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(out.toByteArray()));
 	        return ois.readObject();
 		} catch (Exception ex) {
@@ -136,10 +136,10 @@ public class PrevaylerImpl implements Prevayler {
 			throw new RuntimeException(errorMessage);
 		}
 	}
-	
+
 //	private TransactionSubscriber subscriber() {
 //		return new TransactionSubscriber() {
-//	
+//
 //			public void receive(Transaction transaction, Date executionTime) {
 //				synchronized (_prevalentSystem) {
 //					_systemVersion++;
@@ -150,13 +150,13 @@ public class PrevaylerImpl implements Prevayler {
 //					}
 //				}
 //			}
-//	
+//
 //		};
 //	}
-	
+
 //	private TransactionSubscriber subscriber() {
 //		return new TransactionSubscriber() {
-//	
+//
 //			public void receive(Transaction transaction) {
 //				synchronized (_prevalentSystem) {
 //					_systemVersion++;
@@ -167,15 +167,15 @@ public class PrevaylerImpl implements Prevayler {
 //					}
 //				}
 //			}
-//	
+//
 //		};
 //	}
 
 
 	public class Subscriber implements TransactionSubscriber {
-		
+
 		public Subscriber(){
-			 
+
 		}
 		public void receive(Transaction transaction) {
 //			synchronized (_prevalentSystem) {
@@ -186,14 +186,14 @@ public class PrevaylerImpl implements Prevayler {
 					if (!_ignoreRuntimeExceptions) throw rx;
 				}
 			//}
-		}   
-	}
-	
-	
-	private TransactionSubscriber subscriber() {
-		return new Subscriber(); 
+		}
 	}
 
-	
-	
+
+	private TransactionSubscriber subscriber() {
+		return new Subscriber();
+	}
+
+
+
 }

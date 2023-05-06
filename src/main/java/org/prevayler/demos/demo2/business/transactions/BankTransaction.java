@@ -12,7 +12,7 @@ public abstract class BankTransaction implements TransactionWithQuery {
 //	}
 //
 //	protected abstract Object executeAndQuery(Bank bank, Date timestamp) throws Exception;
-    
+
     public Object executeAndQuery(Object bank) throws Exception {
 		return executeAndQuery((Bank)bank);
 	}

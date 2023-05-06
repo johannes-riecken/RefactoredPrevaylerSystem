@@ -182,7 +182,7 @@ abstract class ScalabilityTestRun {
 		}
 	}
 
-	
+
 	static private void out(Object obj) {
 		System.out.println(obj);
 	}

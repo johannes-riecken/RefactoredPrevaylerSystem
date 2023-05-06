@@ -12,18 +12,18 @@ import org.prevayler.demos.demo2.business.Account;
 import org.prevayler.demos.demo2.business.transactions.Transfer;
 
 class TransferFrame extends AccountFrame {
-	
+
 	private final Account account;
     private JTextField sourceField;
     private JTextField destinationField;
     private JTextField amountField;
-	
+
     TransferFrame(Account account, Prevayler prevayler, Container container) {
         super("Transfer", prevayler, container);
 
 		this.account = account;
         sourceField.setText(account.numberString());
-    
+
         setBounds(50,50,200,194);
 	}
 
@@ -32,7 +32,7 @@ class TransferFrame extends AccountFrame {
         sourceField = new JTextField();
         sourceField.setEnabled(false);
         fieldBox.add(sourceField);
-		
+
 		fieldBox.add(gap());
         fieldBox.add(labelContainer("To Account"));
         destinationField = new JTextField();
@@ -47,9 +47,9 @@ class TransferFrame extends AccountFrame {
 	protected void addButtons(JPanel buttonPanel) {
         buttonPanel.add(new JButton(new OKAction()));
 	}
-	
+
     private class OKAction extends RobustAction {
-		
+
         OKAction() {
             super("OK");
 		}

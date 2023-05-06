@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.Container;
 
 class NewAccountFrame extends AccountFrame {
-	
+
 	NewAccountFrame(Prevayler prevayler, Container container) {
 		super("New Account", prevayler, container);
 
@@ -16,7 +16,7 @@ class NewAccountFrame extends AccountFrame {
 	protected void addButtons(JPanel buttonPanel) {
 		buttonPanel.add(new JButton(new OKAction()));
 	}
-	
+
 	private class OKAction extends RobustAction {
 
 		OKAction() {

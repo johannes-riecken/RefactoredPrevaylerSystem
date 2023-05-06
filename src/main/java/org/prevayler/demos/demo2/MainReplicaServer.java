@@ -18,14 +18,14 @@ public class MainReplicaServer {
 		);
 
 		PrevaylerFactory factory = new PrevaylerFactory();
-		
+
 		factory.configureTransientMode(true);
 		factory.configurePrevalentSystem(new Bank());
 		//factory.configurePrevalenceBase("demo2");
-		
-		
+
+
 		//factory.configureReplicationServer(PrevaylerFactory.DEFAULT_REPLICATION_PORT);
-		
+
 		Prevayler prevayler = factory.create();
 
 		Main.startGui(prevayler);
@@ -34,6 +34,6 @@ public class MainReplicaServer {
 
 	private static void out(String message) {
 		System.out.println(message);
-	}		
+	}
 
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @see Transaction
  */
 public interface TransactionWithQuery extends Serializable {
-	
+
 	/** Performs the necessary modifications on the given prevalentSystem and also returns an Object or throws an Exception.
 	 * This method is called by Prevayler.execute(TransactionWithQuery) to execute this TransactionWithQuery on the given Prevalent System. See org.prevayler.demos for usage examples.
 	 * @param prevalentSystem The system on which this TransactionWithQuery will execute.
@@ -19,5 +19,5 @@ public interface TransactionWithQuery extends Serializable {
 	 */
 	//public Object executeAndQuery(Object prevalentSystem, Date executionTime) throws Exception;
 	Object executeAndQuery(Object prevalentSystem) throws Exception;
-	
+
 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 abstract class RobustAction extends AbstractAction {
-		
+
 	RobustAction(String name) {
 		super(name);
 	}
@@ -16,9 +16,9 @@ abstract class RobustAction extends AbstractAction {
 			display(exception);
 		}
 	}
-		
+
 	protected abstract void action() throws Exception;
-	
+
 	static void display(Exception exception) {
 		JOptionPane.showMessageDialog(null, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	}

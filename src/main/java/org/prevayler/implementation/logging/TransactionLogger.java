@@ -9,7 +9,7 @@ public interface TransactionLogger {
 
 	//public void log(Transaction transaction, Date executionTime, Turn threadSynchronizationTurn);
     //public void log(Transaction transaction, Turn threadSynchronizationTurn);
-    
+
     void log(Transaction transaction);
 
 	void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException;

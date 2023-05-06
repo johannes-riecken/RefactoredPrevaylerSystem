@@ -11,9 +11,9 @@ public class MainXml {
 		out("A snapshot using Skaringa's XML serialization will be taken every 20 seconds...");
 //
 		PrevaylerFactory factory = new PrevaylerFactory();
-		
+
 		factory.configureTransientMode(true);
-		
+
 	//	factory.configurePrevalenceBase("demo2Xml");
 	//	factory.configureSnapshotManager(new XmlSnapshotManager(new Bank(), "demo2Xml"));
 		Prevayler prevayler = factory.create();
@@ -24,5 +24,5 @@ public class MainXml {
 
 	private static void out(String message) {
 		System.out.println(message);
-	}		
+	}
 }

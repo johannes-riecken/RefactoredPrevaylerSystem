@@ -126,8 +126,8 @@ public class Main {
 			"# processes before running the tests. Even the database\n" +
 			"# process should be down while running the Prevayler tests\n" +
 			"# that do not use it.\n" +
-			"\n" +	
-			"\n" +	
+			"\n" +
+			"\n" +
 			"###########################################################\n" +
 			"# PREVAYLER QUERY TEST\n" +
 			"\n" +

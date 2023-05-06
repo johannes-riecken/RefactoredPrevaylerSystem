@@ -10,7 +10,7 @@ public class AccountEntry implements Serializable {
 
 		private AccountEntry() {
 		}
-		
+
 //        AccountEntry(long amount, Date timestamp) {
 //            this.amount = amount;
 //            this.timestamp = timestamp;

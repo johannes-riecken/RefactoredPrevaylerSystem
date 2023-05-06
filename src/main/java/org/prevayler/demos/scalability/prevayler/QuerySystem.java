@@ -37,7 +37,7 @@ class QuerySystem implements ScalabilitySystem {
 			records = new ArrayList();
 			recordsByName.put(newRecord.getName(), records);
 		}
-		
+
 		records.add(newRecord);
 	}
 

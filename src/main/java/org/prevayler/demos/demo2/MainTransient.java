@@ -7,7 +7,7 @@ import org.prevayler.demos.demo2.business.Bank;
 
 
 public class MainTransient {
-	
+
 	public static void main(String[] ignored) throws Exception {
 		out(    "This demo shows how persistence can be turned off"
 			+ "\nwithout changing ONE SINGLE LINE OF CODE in the"
@@ -26,6 +26,6 @@ public class MainTransient {
 
 	private static void out(String message) {
 		System.out.println(message);
-	}		
+	}
 
 }

@@ -1,5 +1,5 @@
 package org.prevayler.demos.demo2.business;
-	
+
 import java.util.*;
 
 public class Bank implements java.io.Serializable {
@@ -7,11 +7,11 @@ public class Bank implements java.io.Serializable {
 	private long nextAccountNumber = 1;
 	private final Map accountsByNumber = new HashMap();
 	private transient BankListener bankListener;
-    
+
 	public Account createAccount(String holder) throws Account.InvalidHolder {
 		Account account = new Account(nextAccountNumber, holder);
 		accountsByNumber.put(new Long(nextAccountNumber++), account);
-		
+
 		if (bankListener != null) bankListener.accountCreated(account);
 		return account;
 	}
@@ -21,7 +21,7 @@ public class Bank implements java.io.Serializable {
 		accountsByNumber.remove(new Long(number));
 		if (bankListener != null) bankListener.accountDeleted(account);
 	}
-	
+
 	public List accounts() {
 		List accounts = new ArrayList(accountsByNumber.values());
 
@@ -33,11 +33,11 @@ public class Bank implements java.io.Serializable {
 
 		return accounts;
 	}
-	
+
 	public void setBankListener(BankListener bankListener) {
 		this.bankListener = bankListener;
 	}
-	
+
 	public Account findAccount(long number) throws AccountNotFound {
 	    Account account = searchAccount(number);
 		if (account == null) throw new AccountNotFound(number);

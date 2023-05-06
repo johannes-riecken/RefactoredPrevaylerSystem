@@ -36,7 +36,7 @@ public class CentralPublisher extends AbstractPublisher {
 //		_censor = censor;
 //		_logger = logger;
 //	}
-	
+
 //	public CentralPublisher(Clock clock, TransactionLogger logger) {
 //		super(new PausableClock(clock));
 //		_pausableClock = (PausableClock)_clock; //This is just to avoid casting the inherited _clock every time.
@@ -50,13 +50,13 @@ public class CentralPublisher extends AbstractPublisher {
 //		_pausableClock = (PausableClock)_clock; //This is just to avoid casting the inherited _clock every time.
 
 		//_censor = censor;
-	    
+
 		_logger = logger;
-	
+
 	}
-	
-	
-	
+
+
+
 
 
 	public void publish(Transaction transaction) {
@@ -69,9 +69,9 @@ public class CentralPublisher extends AbstractPublisher {
 
 		try {
 			publishWithoutWorryingAboutNewSubscriptions(transaction);  // Suggestions for a better method name are welcome.  :)
-		} 
+		}
 		finally {
-		    
+
 		}
 //		finally {
 //			synchronized (_pendingPublicationsMonitor) {
@@ -101,7 +101,7 @@ public class CentralPublisher extends AbstractPublisher {
 //	}
 
 	private void publishWithoutWorryingAboutNewSubscriptions(Transaction transaction) {
-	    
+
 	  	//Turn myTurn = nextTurn();
 
 	//	Date executionTime = realTime(myTurn);  //TODO realTime() and approve in the same turn.
@@ -148,7 +148,7 @@ public class CentralPublisher extends AbstractPublisher {
 
 	public void notifySubscribers(Transaction transaction) {
 		try {
-		    
+
 			super.notifySubscribers(transaction);
 		} finally {
 		    //myTurn.end();
@@ -158,7 +158,7 @@ public class CentralPublisher extends AbstractPublisher {
 	public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
 		//synchronized (_pendingSubscriptionMonitor) {
 			//while (_pendingPublications != 0) Thread.yield();
-		 
+
 			_logger.update(subscriber, initialTransaction);
 			super.addSubscriber(subscriber);
 		//}

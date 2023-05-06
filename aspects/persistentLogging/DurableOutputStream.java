@@ -16,14 +16,14 @@ public class DurableOutputStream {
 	private final ObjectOutputStream _objectOutputStream;
 	private final FileOutputStream _fileOutputStream;
 	private final FileDescriptor _fileDescriptor;
-	
+
 	private IOException _exceptionWhileClosing;
 	private IOException _exceptionWhileSynching;
-//	
+//
 	private int _objectsWritten = 0;
-	
+
 	private int _closingState = NOT_CLOSED;
-	 
+
 
 	public DurableOutputStream(File file) throws IOException {
 		_file = file;
@@ -32,8 +32,8 @@ public class DurableOutputStream {
 		_objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(_fileOutputStream, 16 * 512)); //Arbitrarily large buffer. Should be a power of two multiplied by 512 bytes (disk sector size).
 	}
 
-	
-	
+
+
 
 	public void sync(Object object) throws IOException {
 		writeObject(object);
@@ -53,8 +53,8 @@ public class DurableOutputStream {
 	   if (_closingState == NOT_CLOSED) {
 			_closingState = CLOSE_CALLED;
 		}
-		
-		//Refactoring note: IRUM added this line below for 
+
+		//Refactoring note: IRUM added this line below for
 		//accessing exceptionWhilecloseing pointcut
 		IOException ex = _exceptionWhileClosing;
 		if (ex != null) {
@@ -73,7 +73,7 @@ public class DurableOutputStream {
 	    catch(IOException duringSync) {
 	        _exceptionWhileSynching = duringSync;
 	    }
-	
+
 	}
 
 	protected void finalize() {
@@ -84,11 +84,11 @@ public class DurableOutputStream {
 		}
 		_closingState = REALLY_CLOSED;
 		//notifyAll();
-			
-		
+
+
 	}
-	
-	
+
+
 	public File file() {
 		return _file;
 	}

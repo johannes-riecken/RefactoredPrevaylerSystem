@@ -16,13 +16,13 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 	AllAccountsFrame(Prevayler prevayler, Container container) {
     	super("All Accounts", true);  //true means resizable.
 		_prevayler = prevayler;
-		
+
 		accountList = new JList();
 		accountList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		bank().setBankListener(this);
 		listenToAccounts();
 		refreshAccounts();
-		
+
 		container.add(this);
     		getContentPane().add(new JScrollPane(accountList), BorderLayout.CENTER);
 		getContentPane().add(accountButtons(), BorderLayout.SOUTH);
@@ -30,7 +30,7 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 		setBounds(10,10,330,240);
 		show();
 	}
-  
+
 	private void listenToAccounts() {
 		java.util.Iterator it = accounts().iterator();
 		while (it.hasNext()) {
@@ -41,15 +41,15 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 	private void refreshAccounts() {
 		accountList.setListData(accounts().toArray());
 	}
-	
+
 	private java.util.List accounts() {
 		return bank().accounts();
 	}
-	
+
 	private Bank bank() {
 		return (Bank)_prevayler.prevalentSystem();
 	}
-	
+
 	public void accountCreated(Account a) { //Implements BankListener.
 		a.addAccountListener(this);
 		refreshAccounts();
@@ -63,19 +63,19 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 	public void accountChanged() { //Implements AccountListener.
 		refreshAccounts();
 	}
-  
+
 	private JPanel accountButtons() {
 		JPanel result = new JPanel();
-   
+
 		result.add(new JButton(new AccountCreation()));
 		result.add(new JButton(new AccountEditAction()));
 		result.add(new JButton(new AccountDeleteAction()));
-    
+
 		return result;
 	}
 
 	class AccountCreation extends AbstractAction {
-		
+
 		AccountCreation() {
 			super("Create");
 		}
@@ -83,9 +83,9 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 		public void actionPerformed(ActionEvent e) {
 			new NewAccountFrame(_prevayler, getDesktopPane());
 		}
-		
+
 	}
-	
+
 	abstract class SelectedAccountAction extends RobustAction implements ListSelectionListener {
 
 		SelectedAccountAction(String name) {
@@ -93,7 +93,7 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 			refreshEnabled();
 			accountList.addListSelectionListener(this);
 		}
-  		
+
 		private void refreshEnabled() {
 			this.setEnabled(accountList.getSelectedValue() != null);
 		}
@@ -110,29 +110,29 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
 	}
 
 	class AccountEditAction extends SelectedAccountAction {
-  	
+
 		AccountEditAction() {
 			super("Edit");
 		}
-		
+
 		void action(Account account) {
 			new AccountEditFrame(account, _prevayler, getDesktopPane());
 		}
 	}
 
 	class AccountDeleteAction extends SelectedAccountAction {
-  	
+
 		AccountDeleteAction() {
 			super("Delete");
 		}
-		
+
 		void action(Account account) throws Exception {
 			int option = JOptionPane.showConfirmDialog(null, "Delete selected account?", "Account Deletion", JOptionPane.YES_NO_OPTION);
 			if (option != JOptionPane.YES_OPTION) return;
-			
+
 			_prevayler.execute(new AccountDeletion(account));
 		}
-		  	
+
 	}
 
 }

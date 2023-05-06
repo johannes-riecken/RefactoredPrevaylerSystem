@@ -24,7 +24,7 @@ abstract class AccountFrame extends JInternalFrame {
 	protected String holderText() {
 		return holderField.getText();
 	}
-		
+
 	AccountFrame(String title, Prevayler prevayler, Container container) {
 		super(title, false, true); //Not resizable. Closable.
 		_prevayler = prevayler;
@@ -37,17 +37,17 @@ abstract class AccountFrame extends JInternalFrame {
 		getContentPane().add(Box.createHorizontalStrut(4), BorderLayout.WEST);
 		getContentPane().add(fieldBox(), BorderLayout.CENTER);
 		getContentPane().add(buttonPanel(), BorderLayout.SOUTH);
-		
+
 		show();
 		holderField.requestFocus();
 	}
-	
+
 	private Box fieldBox() {
 		Box fieldBox = Box.createVerticalBox();
 		addFields(fieldBox);
 		return fieldBox;
 	}
-	
+
 	protected void addFields(Box fieldBox) {
 		fieldBox.add(labelContainer("Holder"));
 		fieldBox.add(holderField);
@@ -58,10 +58,10 @@ abstract class AccountFrame extends JInternalFrame {
 		addButtons(buttonPanel);
 		return buttonPanel;
 	}
-	
+
 	abstract protected void addButtons(JPanel buttonPanel);
 
-	protected Container labelContainer(String text)	{	
+	protected Container labelContainer(String text)	{
 		Box box = Box.createHorizontalBox();
 		JLabel label = new JLabel(text);
 		box.add(label);

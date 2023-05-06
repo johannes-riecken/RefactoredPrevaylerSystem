@@ -1,7 +1,7 @@
 package aspects.multithread;
 
 
-/** Used to sequence operations that have to be performed in order by several concurrent threads. 
+/** Used to sequence operations that have to be performed in order by several concurrent threads.
  */
 public class Turn {
 
@@ -27,7 +27,7 @@ public class Turn {
 	public void end() {
 		next().haveSomeTickets(1);
 	}
-	
+
 	private synchronized void haveSomeTickets(int tickets) {
 		if (_isAlwaysSkipped) {
 			next().haveSomeTickets(tickets);

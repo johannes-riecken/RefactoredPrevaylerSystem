@@ -33,18 +33,18 @@ public class ServerConnection implements TransactionSubscriber {
 		_toRemote = new ObjectOutputStream(remoteSocket.getOutputStream());
 //		setDaemon(true);
 		//start();
-		
+
 		//Added the following line instead of setDaemon and start().
 		run();
 	}
 
 
 	public void run() {
-		try {		
+		try {
 			long initialTransaction = ((Long)_fromRemote.readObject()).longValue();
 			_publisher.addSubscriber(new POBox(this), initialTransaction);
 			send(SUBSCRIBER_UP_TO_DATE);
-			
+
 			sendClockTicks();
 			while (true) publishRemoteTransaction();
 		} catch (Exception ex) {
@@ -59,8 +59,8 @@ public class ServerConnection implements TransactionSubscriber {
 				try {
 					while (true) {
 				//		synchronized (_toRemote) {
-						   
-						    
+
+
 							_toRemote.writeObject(CLOCK_TICK);
 					//		_toRemote.writeObject(_publisher.clock().time());
 						}
@@ -74,8 +74,8 @@ public class ServerConnection implements TransactionSubscriber {
 	//	clockTickSender.setDaemon(true);
 		//clockTickSender.start();
 	}
-	
-	
+
+
 
 
 	void publishRemoteTransaction() throws Exception {
@@ -106,7 +106,7 @@ public class ServerConnection implements TransactionSubscriber {
 
 	public void receive(Transaction transaction) {
 		try {
-		   
+
 			//synchronized (_toRemote) {
 				_toRemote.writeObject(transaction == _remoteTransaction
 					? (Object)REMOTE_TRANSACTION

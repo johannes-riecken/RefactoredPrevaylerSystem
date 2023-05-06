@@ -20,32 +20,32 @@ import org.prevayler.demos.demo2.business.transactions.HolderChange;
 import org.prevayler.demos.demo2.business.transactions.Withdrawal;
 
 class AccountEditFrame extends AccountFrame implements AccountListener {
-	
+
 	private final Account account;
 	private JTextField balanceField;
 	private JList historyList;
-	
+
 	AccountEditFrame(Account account, Prevayler prevayler, Container container) {
 		super("Account " + account.numberString(), prevayler, container);
 
 		this.account = account;
 		account.addAccountListener(this);
 		accountChanged();
-		
+
 		holderField.addFocusListener(new HolderListener());
-		
+
         setBounds(50,50,306,300);
 	}
 
 	protected void addFields(Box fieldBox) {
 		super.addFields(fieldBox);
-		
+
 		fieldBox.add(gap());
 		fieldBox.add(labelContainer("Transaction History"));
 		historyList = new JList();
 		historyList.setEnabled(false);
 		fieldBox.add(new JScrollPane(historyList));
-		
+
 		fieldBox.add(gap());
 		fieldBox.add(labelContainer("Balance"));
 		balanceField = new JTextField();
@@ -58,9 +58,9 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
 		buttonPanel.add(new JButton(new WithdrawAction()));
 		buttonPanel.add(new JButton(new TransferAction()));
 	}
-	
+
 	private class DepositAction extends RobustAction {
-		
+
 		DepositAction() {
 			super("Deposit...");
 		}
@@ -73,7 +73,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
 	}
 
 	private class WithdrawAction extends RobustAction {
-		
+
 		WithdrawAction() {
 			super("Withdraw...");
 		}
@@ -92,7 +92,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
     }
 
 	private class TransferAction extends RobustAction {
-		
+
 		TransferAction() {
 			super("Transfer...");
 		}
@@ -107,7 +107,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
 		historyList.setListData(account.transactionHistory().toArray());
 		balanceField.setText(String.valueOf(account.balance()));
 	}
-	
+
 	private class HolderListener extends FocusAdapter {
 		public void focusLost(FocusEvent e) {
 			if (holderText().equals(account.holder())) return;

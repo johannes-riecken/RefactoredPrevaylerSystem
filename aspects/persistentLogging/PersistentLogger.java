@@ -31,7 +31,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 	private final long _logSizeThresholdInBytes;
 	private final long _logAgeThresholdInMillis;
 	private StopWatch _logAgeTimer;
-	
+
 	private long _nextTransaction;
 	private boolean _nextTransactionInitialized = false;
 
@@ -53,7 +53,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 //
 //		DurableOutputStream myOutputJournal;
 //		DurableOutputStream outputJournalToClose = null;
-//		
+//
 //		try {
 //			myTurn.start();
 //			if (!isOutputLogValid()) {
@@ -92,7 +92,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 
 		DurableOutputStream myOutputJournal = null;
 		DurableOutputStream outputJournalToClose = null;
-		
+
 //		try {
 //		//	myTurn.start();
 //			if (!isOutputLogValid()) {
@@ -110,7 +110,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 		this.loghelper1(arrays);
 		myOutputJournal = arrays[1];
 		outputJournalToClose = arrays[0];
-		
+
 		try {
 			myOutputJournal.sync(new TransactionTimestamp(transaction));
 			//myOutputJournal.sync(new TransactionTimestamp(transaction), myTurn);
@@ -121,7 +121,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 
 		logHelper2(outputJournalToClose);
 	}
-	
+
 	/**
 	 * @param outputJournalToClose
 	 */
@@ -153,12 +153,12 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 			//myTurn.end();
 		//}
 	}
-	
-	
+
+
 
 	private boolean isOutputLogValid() {
 		return _outputLog != null
-			&& !isOutputLogTooBig() 
+			&& !isOutputLogTooBig()
 			&& !isOutputLogTooOld();
 	}
 
@@ -191,14 +191,14 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 	 */
 	public void update(TransactionSubscriber subscriber, long initialTransactionWanted) throws IOException, ClassNotFoundException {
 		long initialLogFile = findInitialLogFile(initialTransactionWanted);
-		
+
 		if (initialLogFile == 0) {
 			initializeNextTransaction(initialTransactionWanted, 1);
 			return;
 		}
 
 		long nextTransaction = recoverPendingTransactions(subscriber, initialTransactionWanted, initialLogFile);
-		
+
 		initializeNextTransaction(initialTransactionWanted, nextTransaction);
 	}
 
@@ -234,16 +234,16 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 
 		while(true) {
 			try {
-			   
+
 				TransactionTimestamp entry = (TransactionTimestamp)inputLog.readObject();
-		
+
 				if (recoveringTransaction >= initialTransaction) {
 					subscriber.receive(entry.transaction());
 				}
 //					subscriber.receive(entry.transaction(), entry.timestamp());
-		
+
 				recoveringTransaction++;
-		
+
 			} catch (EOFException eof) {
 				File nextFile = transactionLogFile(recoveringTransaction);
 				if (logFile.equals(nextFile)) renameUnusedFile(logFile);  //The first transaction in this log file is incomplete. We need to reuse this file name.
@@ -290,7 +290,7 @@ public class PersistentLogger implements FileFilter, TransactionLogger {
 	protected void handleExceptionWhileWriting(IOException iox, File logFile) {
 		hang(iox, "\nThe exception above was thrown while trying to write to file " + logFile + " . Prevayler's default behavior is to display this message and block all transactions. You can change this behavior by extending the PersistentLogger class and overriding the method called: handleExceptionWhileWriting(IOException iox, File logFile).");
 	}
-	
+
 	protected void handleExceptionWhileClosing(IOException iox, File logFile) {
 		hang(iox, "\nThe exception above was thrown while trying to close file " + logFile + " . Prevayler's default behavior is to display this message and block all transactions. You can change this behavior by extending the PersistentLogger class and overriding the method called: handleExceptionWhileClosing(IOException iox, File logFile).");
 	}

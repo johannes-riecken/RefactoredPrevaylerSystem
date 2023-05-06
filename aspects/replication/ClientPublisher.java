@@ -21,7 +21,7 @@ import org.prevayler.implementation.publishing.TransactionSubscriber;
  */
 public class ClientPublisher implements TransactionPublisher {
 
-    //made these unfinal. 
+    //made these unfinal.
 	//private final BrokenClock _clock = new BrokenClock();
 
 	private TransactionSubscriber _subscriber;
@@ -69,7 +69,7 @@ public class ClientPublisher implements TransactionPublisher {
 //		}
 //	}
 
-	
+
 	public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
 		if (_subscriber != null) throw new UnsupportedOperationException("The current implementation can only support one subscriber. Future implementations will support more.");
 		_subscriber = subscriber;
@@ -89,7 +89,7 @@ public class ClientPublisher implements TransactionPublisher {
 //		if (_subscriber == null) throw new IllegalStateException("To publish a transaction, this ClientPublisher needs a registered subscriber.");
 //		synchronized (_myTransactionMonitor) {
 //			_myTransaction = transaction;
-//			
+//
 //			try {
 //				_toServer.writeObject(transaction);
 //			} catch (IOException iox) {
@@ -97,7 +97,7 @@ public class ClientPublisher implements TransactionPublisher {
 //				while (true) Thread.yield();
 //			}
 //			wait(_myTransactionMonitor);
-//			
+//
 //			throwEventualErrors();
 //		}
 //	}
@@ -106,7 +106,7 @@ public class ClientPublisher implements TransactionPublisher {
 		if (_subscriber == null) throw new IllegalStateException("To publish a transaction, this ClientPublisher needs a registered subscriber.");
 		//synchronized (_myTransactionMonitor) {
 			publishHelper(transaction);
-			
+
 		//}
 	}
 
@@ -117,7 +117,7 @@ public class ClientPublisher implements TransactionPublisher {
      */
     private void publishHelper(Transaction transaction)  {
         _myTransaction = transaction;
-        
+
         try {
         	_toServer.writeObject(transaction);
         } catch (IOException iox) {
@@ -125,7 +125,7 @@ public class ClientPublisher implements TransactionPublisher {
 //        	while (true) Thread.yield();
         }
        // wait(_myTransactionMonitor);
-        
+
         throwEventualErrors();
     }
 
@@ -140,14 +140,14 @@ public class ClientPublisher implements TransactionPublisher {
 		}
 	}
 
-	
-	
+
+
 
 	private void receiveTransactionFromServer() throws IOException, ClassNotFoundException {
 		//IRUM: Replaced call here to local function call.
 	   // Object transactionCandidate = _fromServer.readObject();
 	    Object transactionCandidate = getTransactionCandidate();
-		
+
 //		if (transactionCandidate.equals(ServerConnection.SUBSCRIBER_UP_TO_DATE)) {
 //			synchronized (_upToDateMonitor) { _upToDateMonitor.notify(); }
 //			return;
@@ -166,7 +166,7 @@ public class ClientPublisher implements TransactionPublisher {
 		//IRUM: Replaced call here to local function call.
 //		Date timestamp = (Date)p._fromServer.readObject();
 //	    p._clock.advanceTo(timestamp);
-		
+
 		helperReceiveTransactionFromServer(transactionCandidate);
 	}
 
@@ -185,24 +185,24 @@ public class ClientPublisher implements TransactionPublisher {
 		if (transactionCandidate.equals(ServerConnection.REMOTE_TRANSACTION)) {
 			//_subscriber.receive(_myTransaction, timestamp);
 		   	_subscriber.receive(_myTransaction);
-			
-			  
+
+
 //			notifyMyTransactionMonitor();
 			return;
 		}
-	    
+
 		_subscriber.receive((Transaction)transactionCandidate);
     }
 
 
     /**
-	 * Added by Irum, returns null. added this to capture pointcut. 
+	 * Added by Irum, returns null. added this to capture pointcut.
 	 * @return
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
 	private Date getTimeStamp() throws IOException, ClassNotFoundException {
-	  
+
 		return null;
 	}
 

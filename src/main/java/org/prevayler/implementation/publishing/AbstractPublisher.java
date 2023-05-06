@@ -19,19 +19,19 @@ import org.prevayler.Transaction;
  */
 public abstract class AbstractPublisher implements TransactionPublisher {
 
-    
-    
+
+
 //    private Clock _clock;
-    
+
     //TODO: made this field unfinal.
    // protected final Clock _clock;
     //private final List _subscribers = new LinkedList();
 //	private List _subscribers = new LinkedList();
     private final List _subscribers;
     //= new LinkedList();
-	
-	//Irum added. 
-	public AbstractPublisher() { 
+
+	//Irum added.
+	public AbstractPublisher() {
 	    _subscribers = new LinkedList();
 	}
 
@@ -57,15 +57,15 @@ public abstract class AbstractPublisher implements TransactionPublisher {
 //		Iterator i = _subscribers.iterator();
 //        while (i.hasNext()) ((TransactionSubscriber) i.next()).receive(transaction, timestamp);
 //    }
-	
+
 //	protected synchronized void notifySubscribers(Transaction transaction) {
 	 protected void notifySubscribers(Transaction transaction) {
-	   	
+
 		Iterator i = _subscribers.iterator();
         while (i.hasNext()) ((TransactionSubscriber) i.next()).receive(transaction);
-    }	
-	
-	
+    }
+
+
 
 
 }

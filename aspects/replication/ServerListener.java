@@ -25,7 +25,7 @@ public class ServerListener  {
 //		setDaemon(true);
 //		start();
 		run();
-	} 
+	}
 
 
 	public void run() {
@@ -34,5 +34,5 @@ public class ServerListener  {
 		} catch (IOException iox) {
 			iox.printStackTrace();
 		}
-	}	
+	}
 }

@@ -25,10 +25,10 @@ import org.prevayler.implementation.publishing.TransactionPublisher;
 
 
 /** Provides easy access to all Prevayler configurations and implementations available in this distribution.
- * Static methods are also provided as short-cuts for the most common configurations. 
+ * Static methods are also provided as short-cuts for the most common configurations.
  * <br>By default, the Prevayler instances created by this class will write their Transactions to .transactionLog files before executing them. The FileDescriptor.sync() method is called to make sure the Java file write-buffers have been written to the operating system. Many operating systems, including most recent versions of Linux and Windows, allow the hard-drive's write-cache to be disabled. This guarantees no executed Transaction will be lost in the event of a power shortage, for example.
- * <br>Also by default, the Prevayler instances created by this class will filter out all Transactions that would throw a RuntimeException or Error if executed on the Prevalent System. This requires enough RAM to hold another copy of the prevalent system. 
- * @see Prevayler 
+ * <br>Also by default, the Prevayler instances created by this class will filter out all Transactions that would throw a RuntimeException or Error if executed on the Prevalent System. This requires enough RAM to hold another copy of the prevalent system.
+ * @see Prevayler
  */
 public class PrevaylerFactory {
 
@@ -40,10 +40,10 @@ public class PrevaylerFactory {
 	private boolean _transientMode;
 //	private String _prevalenceBase;
 	//private SnapshotManager _snapshotManager;
-//	
+//
 //	private long _transactionLogSizeThreshold;
 //	private long _transactionLogAgeThreshold;
-//	
+//
 //	private int _serverPort = -1;
 //	private String _remoteServerIpAddress;
 //	private int _remoteServerPort;
@@ -71,7 +71,7 @@ public class PrevaylerFactory {
 
 
 	/** Creates a Prevayler that will execute Transactions WITHOUT writing them to disk. This is useful for running automated tests or demos MUCH faster than with a regular Prevayler.
-	 * 
+	 *
 	 * Attempts to take snapshots on this transient Prevayler will throw an IOException.
 	 * @param newPrevalentSystem The newly started, "empty" prevalent system.
 	 * @see #createCheckpointPrevayler(Serializable newPrevalentSystem, String snapshotDirectory)
@@ -127,7 +127,7 @@ public class PrevaylerFactory {
 	/** Determines whether the Prevayler created by this factory should be transient (transientMode = true) or persistent (transientMode = false). A transient Prevayler will execute its Transactions WITHOUT writing them to disk. This is useful for stand-alone applications which have a "Save" button, for example, or for running automated tests MUCH faster than with a persistent Prevayler.
 	 */
 	public void configureTransientMode(boolean transientMode) {
-		_transientMode = transientMode;		
+		_transientMode = transientMode;
 	}
 
 
@@ -147,7 +147,7 @@ public class PrevaylerFactory {
 
 
 	/** Configures the prevalent system that will be used by the Prevayler created by this factory.
-	 * @param newPrevalentSystem Will be ignored if a SnapshotManager is configured too because a SnapshotManager already has a prevalent system. If the default SnapshotManager is used, this prevalentSystem must be Serializable. If another SnapshotManager is used, this prevalentSystem must be compatible with it. 
+	 * @param newPrevalentSystem Will be ignored if a SnapshotManager is configured too because a SnapshotManager already has a prevalent system. If the default SnapshotManager is used, this prevalentSystem must be Serializable. If another SnapshotManager is used, this prevalentSystem must be compatible with it.
 	 * @see #configureSnapshotManager(SnapshotManager)
 	 */
 	public void configurePrevalentSystem(Object newPrevalentSystem) {
@@ -219,33 +219,33 @@ public class PrevaylerFactory {
 
 //	private TransactionPublisher publisher(SnapshotManager snapshotManager) throws IOException, ClassNotFoundException {
 //		if (_remoteServerIpAddress != null) return new ClientPublisher(_remoteServerIpAddress, _remoteServerPort);
-//		return new CentralPublisher(clock(), censor(snapshotManager), logger()); 
+//		return new CentralPublisher(clock(), censor(snapshotManager), logger());
 //	}
 
 	private TransactionPublisher publisher() throws IOException, ClassNotFoundException {
 	//	if (_remoteServerIpAddress != null) return new ClientPublisher(_remoteServerIpAddress, _remoteServerPort);
 		//return new CentralPublisher(clock(), logger());
-	    
+
 	    return new CentralPublisher(logger());
 	}
 
 //	private TransactionCensor censor(SnapshotManager snapshotManager) {
 //		return _transactionFiltering
 //			? (TransactionCensor) new StrictTransactionCensor(snapshotManager)
-//			: new LiberalTransactionCensor(); 
+//			: new LiberalTransactionCensor();
 //	}
 
 
 //	private TransactionLogger logger() throws IOException, ClassNotFoundException {
 //		return _transientMode
 //			? (TransactionLogger)new TransientLogger()
-//			: new PersistentLogger(prevalenceBase(), _transactionLogSizeThreshold, _transactionLogAgeThreshold);		
+//			: new PersistentLogger(prevalenceBase(), _transactionLogSizeThreshold, _transactionLogAgeThreshold);
 //	}
-	
+
 	private TransactionLogger logger() throws IOException, ClassNotFoundException {
 		return _transientMode
 			? new TransientLogger()
-			: null;		
+			: null;
 	}
 
 //	private SnapshotManager snapshotManager() throws ClassNotFoundException, IOException {
@@ -255,6 +255,6 @@ public class PrevaylerFactory {
 //	}
 
 
-	
+
 
 }

@@ -36,7 +36,7 @@ public class TransactionWithQueryExecuter implements Transaction {
 
 	public final void executeOn(Object prevalentSystem) {
 		try {
-		    
+
 			_result = _delegate.executeAndQuery(prevalentSystem);
 		} catch (RuntimeException rx) {
 			throw rx;   //This is necessary because of the rollback feature.

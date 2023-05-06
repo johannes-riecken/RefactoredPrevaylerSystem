@@ -43,13 +43,13 @@ public class TransientLogger implements TransactionLogger {
 //			myTurn.end();
 //		}
 //	}
-	
+
 	public void log(Transaction transaction) {
 		if (!_initialTransactionInitialized) throw new IllegalStateException("TransactionLogger.update() has to be called at least once before TransactionLogger.log().");
 
 		try {
 			//myTurn.start();
-		   
+
 			log.add(new TransactionTimestamp(transaction));
 		} finally {
 			//myTurn.end();

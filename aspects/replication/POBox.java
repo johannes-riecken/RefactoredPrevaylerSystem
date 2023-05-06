@@ -12,22 +12,22 @@ import org.prevayler.implementation.TransactionTimestamp;
 import org.prevayler.implementation.publishing.*;
 
 
-/** An assyncronous buffer for transaction subscribers. 
+/** An assyncronous buffer for transaction subscribers.
 */
 //public class POBox extends Thread implements TransactionSubscriber {
 
 public class POBox implements TransactionSubscriber {
-	
+
 	private final LinkedList _queue = new LinkedList();
 	private final TransactionSubscriber _delegate;
 
 
 	public POBox(TransactionSubscriber delegate) {
-	    
+
 		_delegate = delegate;
 //		setDaemon(true);
 //		start();
-		
+
 		//IRUM modified start() to run().
 		run();
 	}
@@ -45,7 +45,7 @@ public class POBox implements TransactionSubscriber {
 	}
 
 	public void run() {
-		while (true) {		    
+		while (true) {
 			TransactionTimestamp notification = waitForNotification();
 			//_delegate.receive(notification.transaction(), notification.timestamp());
 			_delegate.receive(notification.transaction());

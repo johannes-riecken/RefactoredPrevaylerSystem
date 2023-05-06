@@ -17,7 +17,7 @@ public class Deposit extends AccountTransaction {
 //	public void executeAndQuery(Account account, Date timestamp) throws Account.InvalidAmount {
 //		account.deposit(_amount, timestamp);
 //	}
-	
+
 	public void executeAndQuery(Account account) throws Account.InvalidAmount {
 		account.deposit(_amount);
 	}

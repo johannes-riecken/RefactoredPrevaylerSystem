@@ -17,7 +17,7 @@ public class HolderChange extends AccountTransaction {
 //	public void executeAndQuery(Account account, Date ignored) throws Account.InvalidHolder {
 //		account.holder(_newHolder);
 //	}
-	
+
 	public void executeAndQuery(Account account) throws Account.InvalidHolder {
 		account.holder(_newHolder);
 	}

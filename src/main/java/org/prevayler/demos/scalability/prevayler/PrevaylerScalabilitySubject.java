@@ -7,7 +7,7 @@ abstract class PrevaylerScalabilitySubject implements ScalabilityTestSubject {
 
 	protected Prevayler prevayler;
 
-	
+
 	{System.gc();}
 
 

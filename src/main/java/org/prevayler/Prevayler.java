@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public interface Prevayler {
 
-	/** Returns the Object which holds direct or indirect references to all other Business Objects in the system. 
+	/** Returns the Object which holds direct or indirect references to all other Business Objects in the system.
 	 */
     Object prevalentSystem();
 

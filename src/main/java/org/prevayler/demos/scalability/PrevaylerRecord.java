@@ -72,7 +72,7 @@ public class PrevaylerRecord implements Serializable {
 
 	static private String generateLargeString() {
 		char[] chars = new char[980];
-		Arrays.fill(chars, 'A'); 
+		Arrays.fill(chars, 'A');
 		return new String(chars);
 	}
 
