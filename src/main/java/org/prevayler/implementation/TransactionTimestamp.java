@@ -12,7 +12,7 @@ public class TransactionTimestamp implements Serializable {
     static final long serialVersionUID = 0L;
 
     //TODO: Made these unfinal.
-	//private final Transaction transaction;
+    //private final Transaction transaction;
     private  final Transaction transaction;
 //	private final long timestamp;
 
@@ -21,10 +21,10 @@ public class TransactionTimestamp implements Serializable {
 //		this.timestamp = timestamp.getTime();
 //	}
 
-	public TransactionTimestamp(Transaction transaction) {
-		this.transaction = transaction;
-		//this.timestamp = timestamp.getTime();
-	}
+    public TransactionTimestamp(Transaction transaction) {
+        this.transaction = transaction;
+        //this.timestamp = timestamp.getTime();
+    }
 
     public Transaction transaction() {
         return this.transaction;

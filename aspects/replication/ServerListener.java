@@ -15,24 +15,24 @@ import org.prevayler.implementation.publishing.TransactionPublisher;
 //public class ServerListener extends Thread {
 public class ServerListener  {
 
-	private final TransactionPublisher _publisher;
-	private final ServerSocket _serverSocket;
+    private final TransactionPublisher _publisher;
+    private final ServerSocket _serverSocket;
 
 
-	public ServerListener(TransactionPublisher publisher, int port) throws IOException {
-		_serverSocket = new ServerSocket(port);
-		_publisher = publisher;
+    public ServerListener(TransactionPublisher publisher, int port) throws IOException {
+        _serverSocket = new ServerSocket(port);
+        _publisher = publisher;
 //		setDaemon(true);
 //		start();
-		run();
-	}
+        run();
+    }
 
 
-	public void run() {
-		try {
-			while (true) new ServerConnection(_publisher, _serverSocket.accept());
-		} catch (IOException iox) {
-			iox.printStackTrace();
-		}
-	}
+    public void run() {
+        try {
+            while (true) new ServerConnection(_publisher, _serverSocket.accept());
+        } catch (IOException iox) {
+            iox.printStackTrace();
+        }
+    }
 }

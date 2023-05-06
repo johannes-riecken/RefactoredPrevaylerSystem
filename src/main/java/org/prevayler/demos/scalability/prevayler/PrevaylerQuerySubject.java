@@ -7,15 +7,15 @@ import org.prevayler.PrevaylerFactory;
 
 public class PrevaylerQuerySubject extends PrevaylerScalabilitySubject {
 
-	static final String PREVALENCE_BASE = "QueryTest";
+    static final String PREVALENCE_BASE = "QueryTest";
 
-	public PrevaylerQuerySubject() throws java.io.IOException, ClassNotFoundException {
-		if (new File(PREVALENCE_BASE).exists()) PrevalenceTest.delete(PREVALENCE_BASE);
-		prevayler = PrevaylerFactory.createPrevayler(new QuerySystem(), PREVALENCE_BASE);
-	}
+    public PrevaylerQuerySubject() throws java.io.IOException, ClassNotFoundException {
+        if (new File(PREVALENCE_BASE).exists()) PrevalenceTest.delete(PREVALENCE_BASE);
+        prevayler = PrevaylerFactory.createPrevayler(new QuerySystem(), PREVALENCE_BASE);
+    }
 
 
-	public Object createTestConnection() {
-		return new PrevaylerQueryConnection((QuerySystem)prevayler.prevalentSystem());
-	}
+    public Object createTestConnection() {
+        return new PrevaylerQueryConnection((QuerySystem)prevayler.prevalentSystem());
+    }
 }

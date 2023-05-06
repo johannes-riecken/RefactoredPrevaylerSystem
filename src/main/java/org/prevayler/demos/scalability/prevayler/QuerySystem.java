@@ -12,43 +12,43 @@ import org.prevayler.demos.scalability.RecordIterator;
 
 class QuerySystem implements ScalabilitySystem {
 
-	private final Map recordsByName = new HashMap();
+    private final Map recordsByName = new HashMap();
 
 
-	public List queryByName(String name) {
-		return (List)recordsByName.get(name);
-	}
+    public List queryByName(String name) {
+        return (List)recordsByName.get(name);
+    }
 
 
-	public void replaceAllRecords(RecordIterator newRecords) {
-		recordsByName.clear();
+    public void replaceAllRecords(RecordIterator newRecords) {
+        recordsByName.clear();
 
-		while (newRecords.hasNext()) {
-			put(newRecords.next());
-		}
+        while (newRecords.hasNext()) {
+            put(newRecords.next());
+        }
 
-		makeReadOnly();
-	}
-
-
-	private void put(PrevaylerRecord newRecord) {
-		List records = queryByName(newRecord.getName());
-		if (records == null) {
-			records = new ArrayList();
-			recordsByName.put(newRecord.getName(), records);
-		}
-
-		records.add(newRecord);
-	}
+        makeReadOnly();
+    }
 
 
-	/** This is necessary so that the clients cannot alter the Lists they receive as query results.
-	*/
-	private void makeReadOnly() {
-		Iterator entries = recordsByName.entrySet().iterator();
-		while (entries.hasNext()) {
-			Map.Entry entry = (Map.Entry)entries.next();
-			entry.setValue(Collections.unmodifiableList((List)entry.getValue()));
-		}
-	}
+    private void put(PrevaylerRecord newRecord) {
+        List records = queryByName(newRecord.getName());
+        if (records == null) {
+            records = new ArrayList();
+            recordsByName.put(newRecord.getName(), records);
+        }
+
+        records.add(newRecord);
+    }
+
+
+    /** This is necessary so that the clients cannot alter the Lists they receive as query results.
+    */
+    private void makeReadOnly() {
+        Iterator entries = recordsByName.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry)entries.next();
+            entry.setValue(Collections.unmodifiableList((List)entry.getValue()));
+        }
+    }
 }

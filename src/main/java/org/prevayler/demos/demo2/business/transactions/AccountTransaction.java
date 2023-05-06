@@ -7,13 +7,13 @@ import org.prevayler.demos.demo2.business.*;
 
 public abstract class AccountTransaction extends BankTransaction {
 
-	private long _accountNumber;
+    private long _accountNumber;
 
 
     AccountTransaction() {} //Necessary for Skaringa XML serialization.  This would normally be private, but must be package visible (or protected) in this case in order for subclasses to supply private default constructors and actually compile.
-	protected AccountTransaction(Account account) {
-		_accountNumber = account.number();
-	}
+    protected AccountTransaction(Account account) {
+        _accountNumber = account.number();
+    }
 
 //	protected Object executeAndQuery(Bank bank, Date timestamp) throws Exception {
 //		executeAndQuery(bank.findAccount(_accountNumber), timestamp);
@@ -22,11 +22,11 @@ public abstract class AccountTransaction extends BankTransaction {
 //
 //	protected abstract void executeAndQuery(Account account, Date timestamp) throws Exception;
 
-	protected Object executeAndQuery(Bank bank) throws Exception {
-		executeAndQuery(bank.findAccount(_accountNumber));
-		return null;
-	}
+    protected Object executeAndQuery(Bank bank) throws Exception {
+        executeAndQuery(bank.findAccount(_accountNumber));
+        return null;
+    }
 
-	protected abstract void executeAndQuery(Account account) throws Exception;
+    protected abstract void executeAndQuery(Account account) throws Exception;
 
 }

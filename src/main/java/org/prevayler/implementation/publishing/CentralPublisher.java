@@ -18,8 +18,8 @@ public class CentralPublisher extends AbstractPublisher {
 
     //TODO: Made this unfinal
 //	private final PausableClock _pausableClock;
-	//private final TransactionCensor _censor;
-	private final TransactionLogger _logger;
+    //private final TransactionCensor _censor;
+    private final TransactionLogger _logger;
 
 //	private final Object _pendingSubscriptionMonitor = new Object();
 //	private volatile int _pendingPublications = 0;
@@ -45,21 +45,21 @@ public class CentralPublisher extends AbstractPublisher {
 //		_logger = logger;
 //	}
 
-	public CentralPublisher(TransactionLogger logger) {
+    public CentralPublisher(TransactionLogger logger) {
 //		super(new PausableClock(clock));
 //		_pausableClock = (PausableClock)_clock; //This is just to avoid casting the inherited _clock every time.
 
-		//_censor = censor;
+        //_censor = censor;
 
-		_logger = logger;
+        _logger = logger;
 
-	}
-
-
+    }
 
 
 
-	public void publish(Transaction transaction) {
+
+
+    public void publish(Transaction transaction) {
 //		synchronized (_pendingSubscriptionMonitor) {  //Blocks all new publications until the subscription is over.
 //			synchronized (_pendingPublicationsMonitor) {
 //				if (_pendingPublications == 0) _pausableClock.pause();
@@ -67,19 +67,19 @@ public class CentralPublisher extends AbstractPublisher {
 //			}
 //		}
 
-		try {
-			publishWithoutWorryingAboutNewSubscriptions(transaction);  // Suggestions for a better method name are welcome.  :)
-		}
-		finally {
+        try {
+            publishWithoutWorryingAboutNewSubscriptions(transaction);  // Suggestions for a better method name are welcome.  :)
+        }
+        finally {
 
-		}
+        }
 //		finally {
 //			synchronized (_pendingPublicationsMonitor) {
 //				_pendingPublications--;
 //				if (_pendingPublications == 0) _pausableClock.resume();
 //			}
 //		}
-	}
+    }
 
 
 //	private void publishWithoutWorryingAboutNewSubscriptions(Transaction transaction) {
@@ -100,15 +100,15 @@ public class CentralPublisher extends AbstractPublisher {
 //		notifySubscribers(transaction, myTurn);
 //	}
 
-	private void publishWithoutWorryingAboutNewSubscriptions(Transaction transaction) {
+    private void publishWithoutWorryingAboutNewSubscriptions(Transaction transaction) {
 
-	  	//Turn myTurn = nextTurn();
+      	//Turn myTurn = nextTurn();
 
-	//	Date executionTime = realTime(myTurn);  //TODO realTime() and approve in the same turn.
-	//	approve(transaction, executionTime, myTurn);
-		_logger.log(transaction);
-		notifySubscribers(transaction);
-	}
+    //	Date executionTime = realTime(myTurn);  //TODO realTime() and approve in the same turn.
+    //	approve(transaction, executionTime, myTurn);
+        _logger.log(transaction);
+        notifySubscribers(transaction);
+    }
 
 //	private Turn nextTurn() {
 //		synchronized (_nextTurnMonitor) {
@@ -146,25 +146,25 @@ public class CentralPublisher extends AbstractPublisher {
 //	}
 
 
-	public void notifySubscribers(Transaction transaction) {
-		try {
+    public void notifySubscribers(Transaction transaction) {
+        try {
 
-			super.notifySubscribers(transaction);
-		} finally {
-		    //myTurn.end();
-		}
-	}
+            super.notifySubscribers(transaction);
+        } finally {
+            //myTurn.end();
+        }
+    }
 
-	public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
-		//synchronized (_pendingSubscriptionMonitor) {
-			//while (_pendingPublications != 0) Thread.yield();
+    public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
+        //synchronized (_pendingSubscriptionMonitor) {
+            //while (_pendingPublications != 0) Thread.yield();
 
-			_logger.update(subscriber, initialTransaction);
-			super.addSubscriber(subscriber);
-		//}
-	}
+            _logger.update(subscriber, initialTransaction);
+            super.addSubscriber(subscriber);
+        //}
+    }
 
 
-	public void close() throws IOException { _logger.close(); }
+    public void close() throws IOException { _logger.close(); }
 
 }

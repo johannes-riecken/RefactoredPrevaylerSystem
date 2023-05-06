@@ -23,28 +23,28 @@ import org.prevayler.implementation.publishing.TransactionSubscriber;
 public class PrevaylerImpl implements Prevayler {
 
     //TODO:IRUM> made these unfinal.
-	//private final Object _prevalentSystem;
+    //private final Object _prevalentSystem;
     private final Object _prevalentSystem;
-	private long _systemVersion = 0;
+    private long _systemVersion = 0;
 
-	//private final Clock _clock;
-
-	//TODO:IRUM> made these unfinal.
-	//private  Clock _clock;
-
-
-	//private final SnapshotManager _snapshotManager;
+    //private final Clock _clock;
 
     //TODO:IRUM> made these unfinal.
-	//private final TransactionPublisher _publisher;
-	private final TransactionPublisher _publisher;
-	private boolean _ignoreRuntimeExceptions;
+    //private  Clock _clock;
 
 
-	/** Creates a new Prevayler
-	 * @param snapshotManager The SnapshotManager that will be used for reading and writing snapshot files.
-	 * @param transactionPublisher The TransactionPublisher that will be used for publishing transactions executed with this PrevaylerImpl.
-	 */
+    //private final SnapshotManager _snapshotManager;
+
+    //TODO:IRUM> made these unfinal.
+    //private final TransactionPublisher _publisher;
+    private final TransactionPublisher _publisher;
+    private boolean _ignoreRuntimeExceptions;
+
+
+    /** Creates a new Prevayler
+     * @param snapshotManager The SnapshotManager that will be used for reading and writing snapshot files.
+     * @param transactionPublisher The TransactionPublisher that will be used for publishing transactions executed with this PrevaylerImpl.
+     */
 //	public PrevaylerImpl(SnapshotManager snapshotManager, TransactionPublisher transactionPublisher) throws IOException, ClassNotFoundException {
 //		_snapshotManager = snapshotManager;
 //		_prevalentSystem = _snapshotManager.recoveredPrevalentSystem();
@@ -58,48 +58,48 @@ public class PrevaylerImpl implements Prevayler {
 //		_ignoreRuntimeExceptions = false;
 //	}
 
-	public PrevaylerImpl(TransactionPublisher transactionPublisher, Object prevalentSystem) throws IOException, ClassNotFoundException {
+    public PrevaylerImpl(TransactionPublisher transactionPublisher, Object prevalentSystem) throws IOException, ClassNotFoundException {
 
 
-	    _prevalentSystem = prevalentSystem;
-		_publisher = transactionPublisher;
-		//_clock = _publisher.clock();
+        _prevalentSystem = prevalentSystem;
+        _publisher = transactionPublisher;
+        //_clock = _publisher.clock();
 
-		_ignoreRuntimeExceptions = true;     //During pending transaction recovery (rolling forward), RuntimeExceptions are ignored because they were already thrown and handled during the first transaction execution.
-		_publisher.addSubscriber(subscriber(), _systemVersion + 1);
-		_ignoreRuntimeExceptions = false;
-	}
+        _ignoreRuntimeExceptions = true;     //During pending transaction recovery (rolling forward), RuntimeExceptions are ignored because they were already thrown and handled during the first transaction execution.
+        _publisher.addSubscriber(subscriber(), _systemVersion + 1);
+        _ignoreRuntimeExceptions = false;
+    }
 
-	public Object prevalentSystem() { return _prevalentSystem; }
-
-
-	//public Clock clock() { return _clock; }
+    public Object prevalentSystem() { return _prevalentSystem; }
 
 
-	public void execute(Transaction transaction) {
-		publish((Transaction)deepCopy(transaction));
-	}
+    //public Clock clock() { return _clock; }
 
 
-	private void publish(Transaction transaction) {
-		_publisher.publish(transaction);
-	}
+    public void execute(Transaction transaction) {
+        publish((Transaction)deepCopy(transaction));
+    }
 
 
-	public Object execute(Query sensitiveQuery) throws Exception {
-		//synchronized (_prevalentSystem) {
-			//return sensitiveQuery.query(_prevalentSystem, clock().time());
-		//}
-		return sensitiveQuery.query(_prevalentSystem);
-	}
+    private void publish(Transaction transaction) {
+        _publisher.publish(transaction);
+    }
 
 
-	public Object execute(TransactionWithQuery transactionWithQuery) throws Exception {
-		TransactionWithQuery copy = (TransactionWithQuery)deepCopy(transactionWithQuery);
-		TransactionWithQueryExecuter executer = new TransactionWithQueryExecuter(copy);
-		publish(executer);
-		return executer.result();
-	}
+    public Object execute(Query sensitiveQuery) throws Exception {
+        //synchronized (_prevalentSystem) {
+            //return sensitiveQuery.query(_prevalentSystem, clock().time());
+        //}
+        return sensitiveQuery.query(_prevalentSystem);
+    }
+
+
+    public Object execute(TransactionWithQuery transactionWithQuery) throws Exception {
+        TransactionWithQuery copy = (TransactionWithQuery)deepCopy(transactionWithQuery);
+        TransactionWithQueryExecuter executer = new TransactionWithQueryExecuter(copy);
+        publish(executer);
+        return executer.result();
+    }
 
 
 //	public void takeSnapshot() throws IOException {
@@ -109,33 +109,33 @@ public class PrevaylerImpl implements Prevayler {
 //	}
 
 
-	public void close() throws IOException { _publisher.close(); }
+    public void close() throws IOException { _publisher.close(); }
 
 
-	private Object deepCopy(Object transaction) {   //TODO Optimizations: 1) Publish the byte array of the serialized transaction (this will save the Censor and the Logger from having to serialize the transaction again). This is also a step towards transaction multiplexing (useful to avoid hickups due to very large transactions). The Censor can use the actual given transaction if it is Immutable instead of deserializing a new one from the byte array. 2) Make the baptism fail-fast feature optional (default is on). If it is off, the given transaction can be used instead of deserializing a new one from the byte array.
-		//return _snapshotManager.deepCopy(transaction, "Unable to produce a deep copy of the transaction. Deep copies of transactions are executed instead of the transactions themselves so that the behaviour of the system during transaction execution is exactly the same as during transaction recovery from the log.");
-	    //TODO: IRum added by irum here
-	    return deepCopy(transaction, "Unable to produce a deep copy of the transaction. Deep copies of transactions are executed instead of the transactions themselves so that the behaviour of the system during transaction execution is exactly the same as during transaction recovery from the log.");
-	}
+    private Object deepCopy(Object transaction) {   //TODO Optimizations: 1) Publish the byte array of the serialized transaction (this will save the Censor and the Logger from having to serialize the transaction again). This is also a step towards transaction multiplexing (useful to avoid hickups due to very large transactions). The Censor can use the actual given transaction if it is Immutable instead of deserializing a new one from the byte array. 2) Make the baptism fail-fast feature optional (default is on). If it is off, the given transaction can be used instead of deserializing a new one from the byte array.
+        //return _snapshotManager.deepCopy(transaction, "Unable to produce a deep copy of the transaction. Deep copies of transactions are executed instead of the transactions themselves so that the behaviour of the system during transaction execution is exactly the same as during transaction recovery from the log.");
+        //TODO: IRum added by irum here
+        return deepCopy(transaction, "Unable to produce a deep copy of the transaction. Deep copies of transactions are executed instead of the transactions themselves so that the behaviour of the system during transaction execution is exactly the same as during transaction recovery from the log.");
+    }
 
-	//TODO: Irum...introduced by irum.
-	public Object deepCopy(Object original, String errorMessage) {
-		try {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			//writeSnapshot(original, out);
+    //TODO: Irum...introduced by irum.
+    public Object deepCopy(Object original, String errorMessage) {
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            //writeSnapshot(original, out);
 
-			ObjectOutputStream stream = new ObjectOutputStream(out);
-	        stream.writeObject(original);
+            ObjectOutputStream stream = new ObjectOutputStream(out);
+            stream.writeObject(original);
 
-		//	return readSnapshot(new ByteArrayInputStream(out.toByteArray()));
+        //	return readSnapshot(new ByteArrayInputStream(out.toByteArray()));
 
-	        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(out.toByteArray()));
-	        return ois.readObject();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new RuntimeException(errorMessage);
-		}
-	}
+            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(out.toByteArray()));
+            return ois.readObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(errorMessage);
+        }
+    }
 
 //	private TransactionSubscriber subscriber() {
 //		return new TransactionSubscriber() {
@@ -172,27 +172,27 @@ public class PrevaylerImpl implements Prevayler {
 //	}
 
 
-	public class Subscriber implements TransactionSubscriber {
+    public class Subscriber implements TransactionSubscriber {
 
-		public Subscriber(){
+        public Subscriber(){
 
-		}
-		public void receive(Transaction transaction) {
+        }
+        public void receive(Transaction transaction) {
 //			synchronized (_prevalentSystem) {
-				_systemVersion++;
-				try {
-					transaction.executeOn(_prevalentSystem);
-				} catch (RuntimeException rx) {
-					if (!_ignoreRuntimeExceptions) throw rx;
-				}
-			//}
-		}
-	}
+                _systemVersion++;
+                try {
+                    transaction.executeOn(_prevalentSystem);
+                } catch (RuntimeException rx) {
+                    if (!_ignoreRuntimeExceptions) throw rx;
+                }
+            //}
+        }
+    }
 
 
-	private TransactionSubscriber subscriber() {
-		return new Subscriber();
-	}
+    private TransactionSubscriber subscriber() {
+        return new Subscriber();
+    }
 
 
 

@@ -16,78 +16,78 @@ import org.prevayler.implementation.publishing.*;
 //public class ServerConnection extends Thread implements TransactionSubscriber {
 public class ServerConnection implements TransactionSubscriber {
 
-	static final String SUBSCRIBER_UP_TO_DATE = "SubscriberUpToDate";
-	static final String REMOTE_TRANSACTION = "RemoteTransaction";
-	static final String CLOCK_TICK = "ClockTick";
+    static final String SUBSCRIBER_UP_TO_DATE = "SubscriberUpToDate";
+    static final String REMOTE_TRANSACTION = "RemoteTransaction";
+    static final String CLOCK_TICK = "ClockTick";
 
-	private final TransactionPublisher _publisher;
-	private Transaction _remoteTransaction;
+    private final TransactionPublisher _publisher;
+    private Transaction _remoteTransaction;
 
-	private final ObjectOutputStream _toRemote;
-	private final ObjectInputStream _fromRemote;
+    private final ObjectOutputStream _toRemote;
+    private final ObjectInputStream _fromRemote;
 
 
-	ServerConnection(TransactionPublisher publisher, Socket remoteSocket) throws IOException {
-		_publisher = publisher;
-		_fromRemote = new ObjectInputStream(remoteSocket.getInputStream());
-		_toRemote = new ObjectOutputStream(remoteSocket.getOutputStream());
+    ServerConnection(TransactionPublisher publisher, Socket remoteSocket) throws IOException {
+        _publisher = publisher;
+        _fromRemote = new ObjectInputStream(remoteSocket.getInputStream());
+        _toRemote = new ObjectOutputStream(remoteSocket.getOutputStream());
 //		setDaemon(true);
-		//start();
+        //start();
 
-		//Added the following line instead of setDaemon and start().
-		run();
-	}
-
-
-	public void run() {
-		try {
-			long initialTransaction = ((Long)_fromRemote.readObject()).longValue();
-			_publisher.addSubscriber(new POBox(this), initialTransaction);
-			send(SUBSCRIBER_UP_TO_DATE);
-
-			sendClockTicks();
-			while (true) publishRemoteTransaction();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+        //Added the following line instead of setDaemon and start().
+        run();
+    }
 
 
-	private void sendClockTicks() {
-		//Thread clockTickSender = new Thread() {
-			//public void run() {
-				try {
-					while (true) {
-				//		synchronized (_toRemote) {
+    public void run() {
+        try {
+            long initialTransaction = ((Long)_fromRemote.readObject()).longValue();
+            _publisher.addSubscriber(new POBox(this), initialTransaction);
+            send(SUBSCRIBER_UP_TO_DATE);
+
+            sendClockTicks();
+            while (true) publishRemoteTransaction();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
-							_toRemote.writeObject(CLOCK_TICK);
-					//		_toRemote.writeObject(_publisher.clock().time());
-						}
-					//	Thread.sleep(1000);
-					//}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			//}
-		//};
-	//	clockTickSender.setDaemon(true);
-		//clockTickSender.start();
-	}
+    private void sendClockTicks() {
+        //Thread clockTickSender = new Thread() {
+            //public void run() {
+                try {
+                    while (true) {
+                //		synchronized (_toRemote) {
+
+
+                            _toRemote.writeObject(CLOCK_TICK);
+                    //		_toRemote.writeObject(_publisher.clock().time());
+                        }
+                    //	Thread.sleep(1000);
+                    //}
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            //}
+        //};
+    //	clockTickSender.setDaemon(true);
+        //clockTickSender.start();
+    }
 
 
 
 
-	void publishRemoteTransaction() throws Exception {
-		_remoteTransaction = (Transaction)_fromRemote.readObject();
-		try {
-			_publisher.publish(_remoteTransaction);
-		} catch (RuntimeException rx) {
-			send(rx);
-		} catch (Error error) {
-			send(error);
-		}
-	}
+    void publishRemoteTransaction() throws Exception {
+        _remoteTransaction = (Transaction)_fromRemote.readObject();
+        try {
+            _publisher.publish(_remoteTransaction);
+        } catch (RuntimeException rx) {
+            send(rx);
+        } catch (Error error) {
+            send(error);
+        }
+    }
 
 
 //	public void receive(Transaction transaction, Date timestamp) {
@@ -104,29 +104,29 @@ public class ServerConnection implements TransactionSubscriber {
 //		}
 //	}
 
-	public void receive(Transaction transaction) {
-		try {
+    public void receive(Transaction transaction) {
+        try {
 
-			//synchronized (_toRemote) {
-				_toRemote.writeObject(transaction == _remoteTransaction
-					? (Object)REMOTE_TRANSACTION
-					: transaction
-				);
-				//_toRemote.writeObject(timestamp);
-			//}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+            //synchronized (_toRemote) {
+                _toRemote.writeObject(transaction == _remoteTransaction
+                    ? (Object)REMOTE_TRANSACTION
+                    : transaction
+                );
+                //_toRemote.writeObject(timestamp);
+            //}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
-	private void send(Object object) {
-		//synchronized (_toRemote) {
-			try {
-				_toRemote.writeObject(object);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		//}
-	}
+    private void send(Object object) {
+        //synchronized (_toRemote) {
+            try {
+                _toRemote.writeObject(object);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        //}
+    }
 
 }

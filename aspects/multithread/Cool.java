@@ -4,13 +4,13 @@ package aspects.multithread;
  */
 public class Cool {
 
-	public static void wait(Object object) {
-		try {
-			object.wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Unexpected InterruptedException.");
-		}
-	}
+    public static void wait(Object object) {
+        try {
+            object.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unexpected InterruptedException.");
+        }
+    }
 
 }

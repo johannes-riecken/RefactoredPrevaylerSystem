@@ -2,9 +2,9 @@ package org.prevayler.demos.scalability;
 
 public interface ScalabilityTestSubject {
 
-	String name();
+    String name();
 
-	void replaceAllRecords(int records);
+    void replaceAllRecords(int records);
 
-	Object createTestConnection();
+    Object createTestConnection();
 }

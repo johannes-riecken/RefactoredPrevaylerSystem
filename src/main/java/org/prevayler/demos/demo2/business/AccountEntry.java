@@ -8,8 +8,8 @@ public class AccountEntry implements Serializable {
         private long amount;
 //        private Date timestamp;
 
-		private AccountEntry() {
-		}
+        private AccountEntry() {
+        }
 
 //        AccountEntry(long amount, Date timestamp) {
 //            this.amount = amount;

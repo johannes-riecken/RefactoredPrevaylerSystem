@@ -7,22 +7,22 @@ import org.prevayler.PrevaylerFactory;
 
 public class MainXml {
 
-	public static void main(String[] args) throws Exception {
-		out("A snapshot using Skaringa's XML serialization will be taken every 20 seconds...");
+    public static void main(String[] args) throws Exception {
+        out("A snapshot using Skaringa's XML serialization will be taken every 20 seconds...");
 //
-		PrevaylerFactory factory = new PrevaylerFactory();
+        PrevaylerFactory factory = new PrevaylerFactory();
 
-		factory.configureTransientMode(true);
+        factory.configureTransientMode(true);
 
-	//	factory.configurePrevalenceBase("demo2Xml");
-	//	factory.configureSnapshotManager(new XmlSnapshotManager(new Bank(), "demo2Xml"));
-		Prevayler prevayler = factory.create();
+    //	factory.configurePrevalenceBase("demo2Xml");
+    //	factory.configureSnapshotManager(new XmlSnapshotManager(new Bank(), "demo2Xml"));
+        Prevayler prevayler = factory.create();
 //
-		Main.startSnapshots(prevayler);
+        Main.startSnapshots(prevayler);
 
-	}
+    }
 
-	private static void out(String message) {
-		System.out.println(message);
-	}
+    private static void out(String message) {
+        System.out.println(message);
+    }
 }

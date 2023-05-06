@@ -13,16 +13,16 @@ public class TransactionWithQueryExecuter implements Transaction {
 
     static final long serialVersionUID = 0L;
 
-	private TransactionWithQuery _delegate;
+    private TransactionWithQuery _delegate;
 
-	private transient Object _result;
-	private transient Exception _exception;
+    private transient Object _result;
+    private transient Exception _exception;
 
 
     private TransactionWithQueryExecuter() {} //Necessary for Skaringa XML serialization
-	TransactionWithQueryExecuter(TransactionWithQuery transactionWithQuery) {
-		_delegate = transactionWithQuery;
-	}
+    TransactionWithQueryExecuter(TransactionWithQuery transactionWithQuery) {
+        _delegate = transactionWithQuery;
+    }
 
 //	public final void executeOn(Object prevalentSystem, Date timestamp) {
 //		try {
@@ -34,19 +34,19 @@ public class TransactionWithQueryExecuter implements Transaction {
 //		}
 //	}
 
-	public final void executeOn(Object prevalentSystem) {
-		try {
+    public final void executeOn(Object prevalentSystem) {
+        try {
 
-			_result = _delegate.executeAndQuery(prevalentSystem);
-		} catch (RuntimeException rx) {
-			throw rx;   //This is necessary because of the rollback feature.
-		} catch (Exception ex) {
-			_exception = ex;
-		}
-	}
-	Object result() throws Exception {
-		if (_exception != null) throw _exception;
-		return _result;
-	}
+            _result = _delegate.executeAndQuery(prevalentSystem);
+        } catch (RuntimeException rx) {
+            throw rx;   //This is necessary because of the rollback feature.
+        } catch (Exception ex) {
+            _exception = ex;
+        }
+    }
+    Object result() throws Exception {
+        if (_exception != null) throw _exception;
+        return _result;
+    }
 
 }

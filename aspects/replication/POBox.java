@@ -18,19 +18,19 @@ import org.prevayler.implementation.publishing.*;
 
 public class POBox implements TransactionSubscriber {
 
-	private final LinkedList _queue = new LinkedList();
-	private final TransactionSubscriber _delegate;
+    private final LinkedList _queue = new LinkedList();
+    private final TransactionSubscriber _delegate;
 
 
-	public POBox(TransactionSubscriber delegate) {
+    public POBox(TransactionSubscriber delegate) {
 
-		_delegate = delegate;
+        _delegate = delegate;
 //		setDaemon(true);
 //		start();
 
-		//IRUM modified start() to run().
-		run();
-	}
+        //IRUM modified start() to run().
+        run();
+    }
 
 
 //	public synchronized void receive(Transaction transaction, Date timestamp) {
@@ -39,33 +39,33 @@ public class POBox implements TransactionSubscriber {
 //	}
 
 //	public synchronized void receive(Transaction transaction) {
-	public void receive(Transaction transaction) {
-		_queue.add(new TransactionTimestamp(transaction));
-		//notify();
-	}
+    public void receive(Transaction transaction) {
+        _queue.add(new TransactionTimestamp(transaction));
+        //notify();
+    }
 
-	public void run() {
-		while (true) {
-			TransactionTimestamp notification = waitForNotification();
-			//_delegate.receive(notification.transaction(), notification.timestamp());
-			_delegate.receive(notification.transaction());
-		}
-	}
+    public void run() {
+        while (true) {
+            TransactionTimestamp notification = waitForNotification();
+            //_delegate.receive(notification.transaction(), notification.timestamp());
+            _delegate.receive(notification.transaction());
+        }
+    }
 
 
 //	private synchronized TransactionTimestamp waitForNotification() {
-	private TransactionTimestamp waitForNotification() {
-			//while (_queue.size() == 0) waitWithoutInterruptions();
-			return (TransactionTimestamp)_queue.removeFirst();
-	}
+    private TransactionTimestamp waitForNotification() {
+            //while (_queue.size() == 0) waitWithoutInterruptions();
+            return (TransactionTimestamp)_queue.removeFirst();
+    }
 
 //
-	private void waitWithoutInterruptions() {
+    private void waitWithoutInterruptions() {
 //		try {
 //			//wait();
 //		} catch (InterruptedException e) {
 //			throw new RuntimeException("Unexpected InterruptedException.");
 //		}
-	}
+    }
 
 }

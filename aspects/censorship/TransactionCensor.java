@@ -12,6 +12,6 @@ public interface TransactionCensor {
 
 //	public void approve(Transaction transaction, Date executionTime) throws RuntimeException, Error;
 
-	public void approve(Transaction transaction) throws RuntimeException, Error;
+    public void approve(Transaction transaction) throws RuntimeException, Error;
 
 }

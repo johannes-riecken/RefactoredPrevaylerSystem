@@ -7,12 +7,12 @@ import org.prevayler.demos.demo2.business.Bank;
 
 public class MainReplica {
 // TODO Fix exception that is thrown when replicating with no transactionLog created.
-	public static void main(String[] args) throws Exception {
-		out(    "This demo shows how your application can be replicated"
-			+ "\nwithout changing ONE SINGLE LINE OF CODE in the"
-			+ "\nbusiness classes or GUI. This enables query load-"
-			+ "\nbalancing and system fault-tolerance.\n\n"
-		);
+    public static void main(String[] args) throws Exception {
+        out(    "This demo shows how your application can be replicated"
+            + "\nwithout changing ONE SINGLE LINE OF CODE in the"
+            + "\nbusiness classes or GUI. This enables query load-"
+            + "\nbalancing and system fault-tolerance.\n\n"
+        );
 
 //		if (args.length != 1) {
 //			out(  "Usage:   java MainReplica <Server IP Address>"
@@ -23,27 +23,27 @@ public class MainReplica {
 //				+ "\nalready done so.\n\n"
 //			);
 //			return;
-		//}
+        //}
 
-		PrevaylerFactory factory = new PrevaylerFactory();
+        PrevaylerFactory factory = new PrevaylerFactory();
 
-		factory.configureTransientMode(true);
-
-
-		factory.configurePrevalentSystem(new Bank());
-		//factory.configurePrevalenceBase("demo2Replica");
-
-		//factory.configureReplicationClient(args[0], PrevaylerFactory.DEFAULT_REPLICATION_PORT);
-		//factory.configureReplicationClient("localhost", PrevaylerFactory.DEFAULT_REPLICATION_PORT);
-
-		Prevayler prevayler = factory.create();
-
-		Main.startSnapshots(prevayler);
-	}
+        factory.configureTransientMode(true);
 
 
-	private static void out(String message) {
-		System.out.println(message);
-	}
+        factory.configurePrevalentSystem(new Bank());
+        //factory.configurePrevalenceBase("demo2Replica");
+
+        //factory.configureReplicationClient(args[0], PrevaylerFactory.DEFAULT_REPLICATION_PORT);
+        //factory.configureReplicationClient("localhost", PrevaylerFactory.DEFAULT_REPLICATION_PORT);
+
+        Prevayler prevayler = factory.create();
+
+        Main.startSnapshots(prevayler);
+    }
+
+
+    private static void out(String message) {
+        System.out.println(message);
+    }
 
 }

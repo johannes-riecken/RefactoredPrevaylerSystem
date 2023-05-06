@@ -8,51 +8,51 @@ import java.io.*;
 
 public class SimpleInputStream {
 
-	private final File _file;
-	private final ObjectInputStream _delegate;
-	private boolean _EOF = false;
+    private final File _file;
+    private final ObjectInputStream _delegate;
+    private boolean _EOF = false;
 
 
-	public SimpleInputStream(File file) throws IOException {
-		System.out.println("Reading " + file + "...");
-		_file = file;
-		_delegate = new ObjectInputStream(new FileInputStream(file));
-	}
+    public SimpleInputStream(File file) throws IOException {
+        System.out.println("Reading " + file + "...");
+        _file = file;
+        _delegate = new ObjectInputStream(new FileInputStream(file));
+    }
 
 
-	public Object readObject() throws IOException, ClassNotFoundException {
-		if (_EOF) throw new EOFException();
+    public Object readObject() throws IOException, ClassNotFoundException {
+        if (_EOF) throw new EOFException();
 
-		try {
-			return _delegate.readObject();
-		} catch (EOFException eofx) {
-			// Do nothing.
-		} catch (ObjectStreamException scx) {
-			message(scx);
-		} catch (UTFDataFormatException utfx) {
-			message(utfx);
-		} catch (RuntimeException rx) {   //Some stream corruptions cause runtime exceptions in JDK1.3.1!
-			message(rx);
-		}
+        try {
+            return _delegate.readObject();
+        } catch (EOFException eofx) {
+            // Do nothing.
+        } catch (ObjectStreamException scx) {
+            message(scx);
+        } catch (UTFDataFormatException utfx) {
+            message(utfx);
+        } catch (RuntimeException rx) {   //Some stream corruptions cause runtime exceptions in JDK1.3.1!
+            message(rx);
+        }
 
-		_delegate.close();
-		_EOF = true;
-		throw new EOFException();
-	}
+        _delegate.close();
+        _EOF = true;
+        throw new EOFException();
+    }
 
 
-	public void close() throws IOException {
-		_delegate.close();
-		_EOF = true;
-	}
+    public void close() throws IOException {
+        _delegate.close();
+        _EOF = true;
+    }
 
-	private void message(Exception exception) {
-		System.out.println(
-			"\n" + exception + " (File: " + _file + ")" +
-			"\n   The above is a stream corruption that can be caused by:" +
-			"\n      - A system crash while writing to the file (that is OK)." +
-			"\n      - A corruption in the file system (that is NOT OK)." +
-			"\n      - Tampering with the file (that is NOT OK)."
-		);
-	}
+    private void message(Exception exception) {
+        System.out.println(
+            "\n" + exception + " (File: " + _file + ")" +
+            "\n   The above is a stream corruption that can be caused by:" +
+            "\n      - A system crash while writing to the file (that is OK)." +
+            "\n      - A corruption in the file system (that is NOT OK)." +
+            "\n      - Tampering with the file (that is NOT OK)."
+        );
+    }
 }

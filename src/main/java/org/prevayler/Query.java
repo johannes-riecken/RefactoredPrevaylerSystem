@@ -11,13 +11,13 @@ package org.prevayler;
  */
 public interface Query {
 
-	/**
-	 * @param prevalentSystem The Prevalent System to be queried.
-	 * @param executionTime The "current" time.
-	 * @return The result of this Query.
-	 * @throws Exception Any Exception encountered by this Query.
-	 */
-	//public Object query(Object prevalentSystem, Date executionTime) throws Exception;
-	Object query(Object prevalentSystem) throws Exception;
+    /**
+     * @param prevalentSystem The Prevalent System to be queried.
+     * @param executionTime The "current" time.
+     * @return The result of this Query.
+     * @throws Exception Any Exception encountered by this Query.
+     */
+    //public Object query(Object prevalentSystem, Date executionTime) throws Exception;
+    Object query(Object prevalentSystem) throws Exception;
 
 }

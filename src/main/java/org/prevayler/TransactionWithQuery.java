@@ -12,12 +12,12 @@ import java.io.Serializable;
  */
 public interface TransactionWithQuery extends Serializable {
 
-	/** Performs the necessary modifications on the given prevalentSystem and also returns an Object or throws an Exception.
-	 * This method is called by Prevayler.execute(TransactionWithQuery) to execute this TransactionWithQuery on the given Prevalent System. See org.prevayler.demos for usage examples.
-	 * @param prevalentSystem The system on which this TransactionWithQuery will execute.
-	 * @param executionTime The time at which this TransactionWithQuery is being executed. Every Transaction executes completely within a single moment in time. Logically, a Prevalent System's time does not pass during the execution of a Transaction.
-	 */
-	//public Object executeAndQuery(Object prevalentSystem, Date executionTime) throws Exception;
-	Object executeAndQuery(Object prevalentSystem) throws Exception;
+    /** Performs the necessary modifications on the given prevalentSystem and also returns an Object or throws an Exception.
+     * This method is called by Prevayler.execute(TransactionWithQuery) to execute this TransactionWithQuery on the given Prevalent System. See org.prevayler.demos for usage examples.
+     * @param prevalentSystem The system on which this TransactionWithQuery will execute.
+     * @param executionTime The time at which this TransactionWithQuery is being executed. Every Transaction executes completely within a single moment in time. Logically, a Prevalent System's time does not pass during the execution of a Transaction.
+     */
+    //public Object executeAndQuery(Object prevalentSystem, Date executionTime) throws Exception;
+    Object executeAndQuery(Object prevalentSystem) throws Exception;
 
 }

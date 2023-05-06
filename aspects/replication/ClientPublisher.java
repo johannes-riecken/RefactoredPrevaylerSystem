@@ -22,41 +22,41 @@ import org.prevayler.implementation.publishing.TransactionSubscriber;
 public class ClientPublisher implements TransactionPublisher {
 
     //made these unfinal.
-	//private final BrokenClock _clock = new BrokenClock();
+    //private final BrokenClock _clock = new BrokenClock();
 
-	private TransactionSubscriber _subscriber;
-	//private final Object _upToDateMonitor = new Object();
+    private TransactionSubscriber _subscriber;
+    //private final Object _upToDateMonitor = new Object();
 
-	private Transaction _myTransaction;
+    private Transaction _myTransaction;
 //	private final Object _myTransactionMonitor = new Object();
-	private RuntimeException _myTransactionRuntimeException;
-	private Error _myTransactionError;
+    private RuntimeException _myTransactionRuntimeException;
+    private Error _myTransactionError;
 
-	private final ObjectOutputStream _toServer;
-	private final ObjectInputStream _fromServer;
-
-
-	public ClientPublisher(String serverIpAddress, int serverPort) throws IOException, ClassNotFoundException {
-		Socket socket = new Socket(serverIpAddress, serverPort);
-		_toServer = new ObjectOutputStream(socket.getOutputStream());   // Get the OUTPUT stream first. JDK 1.3.1_01 for Windows will lock up if you get the INPUT stream first.
-		_fromServer = new ObjectInputStream(socket.getInputStream());
-		startListening();
-	}
+    private final ObjectOutputStream _toServer;
+    private final ObjectInputStream _fromServer;
 
 
-	private void startListening() {
+    public ClientPublisher(String serverIpAddress, int serverPort) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket(serverIpAddress, serverPort);
+        _toServer = new ObjectOutputStream(socket.getOutputStream());   // Get the OUTPUT stream first. JDK 1.3.1_01 for Windows will lock up if you get the INPUT stream first.
+        _fromServer = new ObjectInputStream(socket.getInputStream());
+        startListening();
+    }
+
+
+    private void startListening() {
 //		Thread listener = new Thread() {
 //			public void run() {
-				try {
-					while (true) receiveTransactionFromServer();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+                try {
+                    while (true) receiveTransactionFromServer();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 //			}
 //		};
 //		listener.setDaemon(true);
 //		listener.start();
-	}
+    }
 
 
 //	public synchronized void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
@@ -70,18 +70,18 @@ public class ClientPublisher implements TransactionPublisher {
 //	}
 
 
-	public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
-		if (_subscriber != null) throw new UnsupportedOperationException("The current implementation can only support one subscriber. Future implementations will support more.");
-		_subscriber = subscriber;
-		//synchronized (_upToDateMonitor) {
-		 _toServer.writeObject(new Long(initialTransaction));
-		//	wait(_upToDateMonitor);
-		//}
-	}
+    public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
+        if (_subscriber != null) throw new UnsupportedOperationException("The current implementation can only support one subscriber. Future implementations will support more.");
+        _subscriber = subscriber;
+        //synchronized (_upToDateMonitor) {
+         _toServer.writeObject(new Long(initialTransaction));
+        //	wait(_upToDateMonitor);
+        //}
+    }
 
-	public void removeSubscriber(TransactionSubscriber subscriber) {
-		throw new UnsupportedOperationException("Removing subscribers is not yet supported by the current implementation.");
-	}
+    public void removeSubscriber(TransactionSubscriber subscriber) {
+        throw new UnsupportedOperationException("Removing subscribers is not yet supported by the current implementation.");
+    }
 
 
 //	public synchronized void publish(Transaction transaction) {
@@ -102,15 +102,15 @@ public class ClientPublisher implements TransactionPublisher {
 //		}
 //	}
 
-	public void publish(Transaction transaction)  {
-		if (_subscriber == null) throw new IllegalStateException("To publish a transaction, this ClientPublisher needs a registered subscriber.");
-		//synchronized (_myTransactionMonitor) {
-			publishHelper(transaction);
+    public void publish(Transaction transaction)  {
+        if (_subscriber == null) throw new IllegalStateException("To publish a transaction, this ClientPublisher needs a registered subscriber.");
+        //synchronized (_myTransactionMonitor) {
+            publishHelper(transaction);
 
-		//}
-	}
+        //}
+    }
 
-	/**
+    /**
      * @param transaction
      * @throws InterruptedException
      * @throws Error
@@ -131,22 +131,22 @@ public class ClientPublisher implements TransactionPublisher {
 
 
     private void throwEventualErrors() throws RuntimeException, Error {
-		try {
-			if (_myTransactionRuntimeException != null) throw _myTransactionRuntimeException;
-			if (_myTransactionError != null) throw _myTransactionError;
-		} finally {
-			_myTransactionRuntimeException = null;
-			_myTransactionError = null;
-		}
-	}
+        try {
+            if (_myTransactionRuntimeException != null) throw _myTransactionRuntimeException;
+            if (_myTransactionError != null) throw _myTransactionError;
+        } finally {
+            _myTransactionRuntimeException = null;
+            _myTransactionError = null;
+        }
+    }
 
 
 
 
-	private void receiveTransactionFromServer() throws IOException, ClassNotFoundException {
-		//IRUM: Replaced call here to local function call.
-	   // Object transactionCandidate = _fromServer.readObject();
-	    Object transactionCandidate = getTransactionCandidate();
+    private void receiveTransactionFromServer() throws IOException, ClassNotFoundException {
+        //IRUM: Replaced call here to local function call.
+       // Object transactionCandidate = _fromServer.readObject();
+        Object transactionCandidate = getTransactionCandidate();
 
 //		if (transactionCandidate.equals(ServerConnection.SUBSCRIBER_UP_TO_DATE)) {
 //			synchronized (_upToDateMonitor) { _upToDateMonitor.notify(); }
@@ -163,16 +163,16 @@ public class ClientPublisher implements TransactionPublisher {
 //			notifyMyTransactionMonitor();
 //			return;
 //		}
-		//IRUM: Replaced call here to local function call.
+        //IRUM: Replaced call here to local function call.
 //		Date timestamp = (Date)p._fromServer.readObject();
 //	    p._clock.advanceTo(timestamp);
 
-		helperReceiveTransactionFromServer(transactionCandidate);
-	}
+        helperReceiveTransactionFromServer(transactionCandidate);
+    }
 
 
-	/**
-	 * IRUM ADDED
+    /**
+     * IRUM ADDED
      * @param transactionCandidate
      * @throws IOException
      * @throws ClassNotFoundException
@@ -180,42 +180,42 @@ public class ClientPublisher implements TransactionPublisher {
     private void helperReceiveTransactionFromServer(Object transactionCandidate) throws IOException, ClassNotFoundException {
         Date timestamp = getTimeStamp();
 
-		if (transactionCandidate.equals(ServerConnection.CLOCK_TICK)) return;
+        if (transactionCandidate.equals(ServerConnection.CLOCK_TICK)) return;
 
-		if (transactionCandidate.equals(ServerConnection.REMOTE_TRANSACTION)) {
-			//_subscriber.receive(_myTransaction, timestamp);
-		   	_subscriber.receive(_myTransaction);
+        if (transactionCandidate.equals(ServerConnection.REMOTE_TRANSACTION)) {
+            //_subscriber.receive(_myTransaction, timestamp);
+           	_subscriber.receive(_myTransaction);
 
 
 //			notifyMyTransactionMonitor();
-			return;
-		}
+            return;
+        }
 
-		_subscriber.receive((Transaction)transactionCandidate);
+        _subscriber.receive((Transaction)transactionCandidate);
     }
 
 
     /**
-	 * Added by Irum, returns null. added this to capture pointcut.
-	 * @return
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
-	private Date getTimeStamp() throws IOException, ClassNotFoundException {
+     * Added by Irum, returns null. added this to capture pointcut.
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private Date getTimeStamp() throws IOException, ClassNotFoundException {
 
-		return null;
-	}
+        return null;
+    }
 
 
-	/**
-	 * @return
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
-	private Object getTransactionCandidate() throws IOException, ClassNotFoundException {
-		Object transactionCandidate = _fromServer.readObject();
-		return transactionCandidate;
-	}
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private Object getTransactionCandidate() throws IOException, ClassNotFoundException {
+        Object transactionCandidate = _fromServer.readObject();
+        return transactionCandidate;
+    }
 
 
 //	private static void wait(Object monitor) {
@@ -239,9 +239,9 @@ public class ClientPublisher implements TransactionPublisher {
 //	}
 
 
-	public void close() throws IOException {
-		_fromServer.close();
-		_toServer.close();
-	}
+    public void close() throws IOException {
+        _fromServer.close();
+        _toServer.close();
+    }
 
 }

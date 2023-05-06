@@ -5,21 +5,21 @@ import java.awt.event.ActionEvent;
 
 abstract class RobustAction extends AbstractAction {
 
-	RobustAction(String name) {
-		super(name);
-	}
+    RobustAction(String name) {
+        super(name);
+    }
 
-	public void actionPerformed(ActionEvent e) {
-		try {
-			action();
-		} catch (Exception exception) {
-			display(exception);
-		}
-	}
+    public void actionPerformed(ActionEvent e) {
+        try {
+            action();
+        } catch (Exception exception) {
+            display(exception);
+        }
+    }
 
-	protected abstract void action() throws Exception;
+    protected abstract void action() throws Exception;
 
-	static void display(Exception exception) {
-		JOptionPane.showMessageDialog(null, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-	}
+    static void display(Exception exception) {
+        JOptionPane.showMessageDialog(null, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

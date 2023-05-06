@@ -10,17 +10,17 @@ import java.util.Date;
  */
 public class MachineClock extends BrokenClock {
 
-	/** @return The local machine time.
-	*/
-	public Date time() {
-		update();
-		return super.time();
-	}
+    /** @return The local machine time.
+    */
+    public Date time() {
+        update();
+        return super.time();
+    }
 
 
-	private void update() {
-		long newTime = System.currentTimeMillis();
-		if (newTime != _millis) advanceTo(new Date(newTime));
-	}
+    private void update() {
+        long newTime = System.currentTimeMillis();
+        if (newTime != _millis) advanceTo(new Date(newTime));
+    }
 
 }

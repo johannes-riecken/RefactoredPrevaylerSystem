@@ -7,26 +7,26 @@ import java.awt.Container;
 
 class NewAccountFrame extends AccountFrame {
 
-	NewAccountFrame(Prevayler prevayler, Container container) {
-		super("New Account", prevayler, container);
+    NewAccountFrame(Prevayler prevayler, Container container) {
+        super("New Account", prevayler, container);
 
-		setBounds(50,50,240,114);
-	}
+        setBounds(50,50,240,114);
+    }
 
-	protected void addButtons(JPanel buttonPanel) {
-		buttonPanel.add(new JButton(new OKAction()));
-	}
+    protected void addButtons(JPanel buttonPanel) {
+        buttonPanel.add(new JButton(new OKAction()));
+    }
 
-	private class OKAction extends RobustAction {
+    private class OKAction extends RobustAction {
 
-		OKAction() {
-			super("OK");
-		}
+        OKAction() {
+            super("OK");
+        }
 
-		protected void action() throws Exception {
-			_prevayler.execute(new AccountCreation(holderText()));
-			dispose();
-		}
-	}
+        protected void action() throws Exception {
+            _prevayler.execute(new AccountCreation(holderText()));
+            dispose();
+        }
+    }
 
 }

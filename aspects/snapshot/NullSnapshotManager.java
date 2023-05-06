@@ -8,15 +8,15 @@ import java.io.IOException;
 
 public class NullSnapshotManager extends SnapshotManager {
 
-	private final String _snapshotAttemptErrorMessage;
+    private final String _snapshotAttemptErrorMessage;
 
-	public NullSnapshotManager(Object newPrevalentSystem, String snapshotAttemptErrorMessage) {
-		super(newPrevalentSystem);
-		_snapshotAttemptErrorMessage = snapshotAttemptErrorMessage;
-	}
+    public NullSnapshotManager(Object newPrevalentSystem, String snapshotAttemptErrorMessage) {
+        super(newPrevalentSystem);
+        _snapshotAttemptErrorMessage = snapshotAttemptErrorMessage;
+    }
 
-	public void writeSnapshot(Object prevalentSystem, long version) throws IOException {
-		throw new IOException(_snapshotAttemptErrorMessage);
-	}
+    public void writeSnapshot(Object prevalentSystem, long version) throws IOException {
+        throw new IOException(_snapshotAttemptErrorMessage);
+    }
 
 }

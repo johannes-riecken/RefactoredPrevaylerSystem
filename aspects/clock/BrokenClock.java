@@ -13,26 +13,26 @@ import java.util.Date;
  */
 public class BrokenClock implements Clock {
 
-	private Date _time;
-	protected long _millis;
+    private Date _time;
+    protected long _millis;
 
-	public BrokenClock() {
-			this(new Date(0));
-	}
+    public BrokenClock() {
+            this(new Date(0));
+    }
 
-	public BrokenClock(Date time) {
-		_time = time;
-		_millis = time.getTime();
-	}
+    public BrokenClock(Date time) {
+        _time = time;
+        _millis = time.getTime();
+    }
 
-	public Date time() { return _time; }
+    public Date time() { return _time; }
 
 //	public synchronized void advanceTo(Date newTime) {
-	public  void advanceTo(Date newTime) {
-		long newMillis = newTime.getTime();
-		if (newMillis == _millis) return;
-		_millis = newMillis;
-		_time = newTime;
-	}
+    public  void advanceTo(Date newTime) {
+        long newMillis = newTime.getTime();
+        if (newMillis == _millis) return;
+        _millis = newMillis;
+        _time = newTime;
+    }
 
 }

@@ -12,24 +12,24 @@ import java.io.IOException;
 
 public interface TransactionPublisher {
 
-	/** Updates the given subscriber with all transactions published since initialTransaction, returns and continues publishing all future transactions to him.
-	 */
+    /** Updates the given subscriber with all transactions published since initialTransaction, returns and continues publishing all future transactions to him.
+     */
     void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException;
 
-	/** Stops publishing future transactions to the given subscriber.
-	 */
+    /** Stops publishing future transactions to the given subscriber.
+     */
     void removeSubscriber(TransactionSubscriber subscriber);
 
-	/** Publishes transaction to the subscribers synchronously. This method will only return after all subscribers have received transaction. Note that no guarantee can be made as to wether the subscribers have actually executed it.
-	 */
+    /** Publishes transaction to the subscribers synchronously. This method will only return after all subscribers have received transaction. Note that no guarantee can be made as to wether the subscribers have actually executed it.
+     */
     void publish(Transaction transaction);
 
 //	/** Returns a Clock which is consistent with the Transaction publishing time.
 //	 */
 //	public Clock clock();
 
-	/** Closes any files or other system resources opened by this TransactionPublisher.
-	 */
+    /** Closes any files or other system resources opened by this TransactionPublisher.
+     */
     void close() throws IOException;
 
 }

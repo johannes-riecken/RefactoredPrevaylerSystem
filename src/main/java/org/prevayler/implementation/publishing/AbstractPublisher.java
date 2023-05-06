@@ -30,10 +30,10 @@ public abstract class AbstractPublisher implements TransactionPublisher {
     private final List _subscribers;
     //= new LinkedList();
 
-	//Irum added.
-	public AbstractPublisher() {
-	    _subscribers = new LinkedList();
-	}
+    //Irum added.
+    public AbstractPublisher() {
+        _subscribers = new LinkedList();
+    }
 
 //    public AbstractPublisher(Clock clock) {
 //        _clock = clock;
@@ -44,14 +44,14 @@ public abstract class AbstractPublisher implements TransactionPublisher {
 //    }
 
     //public synchronized void addSubscriber(TransactionSubscriber subscriber) throws IOException, ClassNotFoundException {
-	 public void addSubscriber(TransactionSubscriber subscriber) throws IOException, ClassNotFoundException {
-		_subscribers.add(subscriber);
+     public void addSubscriber(TransactionSubscriber subscriber) throws IOException, ClassNotFoundException {
+        _subscribers.add(subscriber);
     }
 
-	//public synchronized void removeSubscriber(TransactionSubscriber subscriber) {
-	 public void removeSubscriber(TransactionSubscriber subscriber) {
-		_subscribers.remove(subscriber);
-	}
+    //public synchronized void removeSubscriber(TransactionSubscriber subscriber) {
+     public void removeSubscriber(TransactionSubscriber subscriber) {
+        _subscribers.remove(subscriber);
+    }
 
 //    protected synchronized void notifySubscribers(Transaction transaction, Date timestamp) {
 //		Iterator i = _subscribers.iterator();
@@ -59,9 +59,9 @@ public abstract class AbstractPublisher implements TransactionPublisher {
 //    }
 
 //	protected synchronized void notifySubscribers(Transaction transaction) {
-	 protected void notifySubscribers(Transaction transaction) {
+     protected void notifySubscribers(Transaction transaction) {
 
-		Iterator i = _subscribers.iterator();
+        Iterator i = _subscribers.iterator();
         while (i.hasNext()) ((TransactionSubscriber) i.next()).receive(transaction);
     }
 

@@ -9,7 +9,7 @@ import org.prevayler.Transaction;
 
 public interface TransactionSubscriber {
 
-	//public void receive(Transaction transaction, Date timestamp);
+    //public void receive(Transaction transaction, Date timestamp);
 
     void receive(Transaction transaction);
 

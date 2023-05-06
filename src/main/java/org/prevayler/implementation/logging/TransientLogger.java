@@ -17,9 +17,9 @@ import org.prevayler.implementation.publishing.TransactionSubscriber;
 
 public class TransientLogger implements TransactionLogger {
 
-	private final List log = new ArrayList();
-	private long _initialTransaction;
-	private boolean _initialTransactionInitialized = false;
+    private final List log = new ArrayList();
+    private long _initialTransaction;
+    private boolean _initialTransactionInitialized = false;
 
 
 //	public void log(Transaction transaction, Date executionTime, Turn myTurn) {
@@ -44,38 +44,38 @@ public class TransientLogger implements TransactionLogger {
 //		}
 //	}
 
-	public void log(Transaction transaction) {
-		if (!_initialTransactionInitialized) throw new IllegalStateException("TransactionLogger.update() has to be called at least once before TransactionLogger.log().");
+    public void log(Transaction transaction) {
+        if (!_initialTransactionInitialized) throw new IllegalStateException("TransactionLogger.update() has to be called at least once before TransactionLogger.log().");
 
-		try {
-			//myTurn.start();
+        try {
+            //myTurn.start();
 
-			log.add(new TransactionTimestamp(transaction));
-		} finally {
-			//myTurn.end();
-		}
-	}
+            log.add(new TransactionTimestamp(transaction));
+        } finally {
+            //myTurn.end();
+        }
+    }
 
-	//public synchronized void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
-	public void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
-		if (!_initialTransactionInitialized) {
-			_initialTransactionInitialized = true;
-			_initialTransaction = initialTransaction;
-			return;
-		}
-		if (initialTransaction < _initialTransaction) throw new IOException("Unable to recover transaction " + initialTransaction + ". The oldest recoverable transaction is " + _initialTransaction + ".");
+    //public synchronized void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
+    public void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
+        if (!_initialTransactionInitialized) {
+            _initialTransactionInitialized = true;
+            _initialTransaction = initialTransaction;
+            return;
+        }
+        if (initialTransaction < _initialTransaction) throw new IOException("Unable to recover transaction " + initialTransaction + ". The oldest recoverable transaction is " + _initialTransaction + ".");
 
-		int i = (int)(initialTransaction - _initialTransaction);
-		if (i > log.size()) throw new IOException("The transaction log has not yet reached transaction " + initialTransaction + ". The last logged transaction was " + (_initialTransaction + log.size() - 1) + ".");
+        int i = (int)(initialTransaction - _initialTransaction);
+        if (i > log.size()) throw new IOException("The transaction log has not yet reached transaction " + initialTransaction + ". The last logged transaction was " + (_initialTransaction + log.size() - 1) + ".");
 
-		while (i != log.size()) {
-			TransactionTimestamp entry = (TransactionTimestamp)log.get(i);
+        while (i != log.size()) {
+            TransactionTimestamp entry = (TransactionTimestamp)log.get(i);
 //			subscriber.receive(entry.transaction(), entry.timestamp());
-			subscriber.receive(entry.transaction());
-			i++;
-		}
-	}
+            subscriber.receive(entry.transaction());
+            i++;
+        }
+    }
 
-	public void close() {}
+    public void close() {}
 
 }

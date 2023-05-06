@@ -10,20 +10,20 @@ import org.prevayler.Transaction;
  */
 class NumberStorageTransaction implements Transaction {
 
-	private int _numberToKeep;
+    private int _numberToKeep;
 
     private NumberStorageTransaction() {} //Necessary for Skaringa XML serialization
-	NumberStorageTransaction(int numberToKeep) {
-		_numberToKeep = numberToKeep;
-	}
+    NumberStorageTransaction(int numberToKeep) {
+        _numberToKeep = numberToKeep;
+    }
 
-	public void executeOn(Object prevalentSystem, Date ignored) {
-		((NumberKeeper)prevalentSystem).keep(_numberToKeep);
-	}
+    public void executeOn(Object prevalentSystem, Date ignored) {
+        ((NumberKeeper)prevalentSystem).keep(_numberToKeep);
+    }
 
-	// TODO
-	@Override
-	public void executeOn(Object prevalentSystem) {
+    // TODO
+    @Override
+    public void executeOn(Object prevalentSystem) {
 
-	}
+    }
 }

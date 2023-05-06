@@ -6,33 +6,33 @@ import java.io.Serializable;
 */
 public class RecordIterator implements Serializable {
 
-	private final int numberOfRecords;
-	private int nextRecordId = 0;
+    private final int numberOfRecords;
+    private int nextRecordId = 0;
 
 
-	public RecordIterator(int numberOfRecords) {
-		this.numberOfRecords = numberOfRecords;
-	}
+    public RecordIterator(int numberOfRecords) {
+        this.numberOfRecords = numberOfRecords;
+    }
 
-	public boolean hasNext() {
-		return nextRecordId < numberOfRecords;
-	}
+    public boolean hasNext() {
+        return nextRecordId < numberOfRecords;
+    }
 
-	public PrevaylerRecord next() {
-		indicateProgress();
-		return new PrevaylerRecord(nextRecordId++);
-	}
+    public PrevaylerRecord next() {
+        indicateProgress();
+        return new PrevaylerRecord(nextRecordId++);
+    }
 
-	private void indicateProgress() {
-		if (nextRecordId == 0) {
-			out("Creating " + numberOfRecords + " objects...");
-			return;
-		}
-		if (nextRecordId % 100000 == 0) out("" + nextRecordId + "...");
-	}
+    private void indicateProgress() {
+        if (nextRecordId == 0) {
+            out("Creating " + numberOfRecords + " objects...");
+            return;
+        }
+        if (nextRecordId % 100000 == 0) out("" + nextRecordId + "...");
+    }
 
 
-	static private void out(Object message) {
-		System.out.println(message);
-	}
+    static private void out(Object message) {
+        System.out.println(message);
+    }
 }
