@@ -7,6 +7,7 @@ public class JDBCTransactionSubject extends JDBCScalabilitySubject {
     }
 
 
+    @Override
     public Object createTestConnection() {
         return new JDBCTransactionConnection(createConnection());
     }

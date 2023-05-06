@@ -35,6 +35,7 @@ public class BankFrame extends JFrame {
 
     private void refreshClock() {
         Thread clockRefresher = new Thread() {
+            @Override
             public void run() {
                 while (true) {
 //					DateFormat format = new SimpleDateFormat("hh:mm:ss");

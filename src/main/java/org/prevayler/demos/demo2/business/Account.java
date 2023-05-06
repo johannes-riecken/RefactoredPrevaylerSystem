@@ -22,6 +22,7 @@ public class Account implements java.io.Serializable {
         return number;
     }
 
+    @Override
     public String toString() { //Returns something like "00123 - John Smith"
         return numberString() + " - " + holder;
     }

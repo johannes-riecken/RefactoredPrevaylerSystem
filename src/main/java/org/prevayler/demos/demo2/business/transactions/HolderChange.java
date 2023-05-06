@@ -18,6 +18,7 @@ public class HolderChange extends AccountTransaction {
 //		account.holder(_newHolder);
 //	}
 
+    @Override
     public void executeAndQuery(Account account) throws Account.InvalidHolder {
         account.holder(_newHolder);
     }

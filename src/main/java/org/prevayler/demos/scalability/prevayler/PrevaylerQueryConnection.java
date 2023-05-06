@@ -13,6 +13,7 @@ class PrevaylerQueryConnection implements QueryConnection {
     }
 
 
+    @Override
     public List queryByName(String name) {
         return querySystem.queryByName(name);
     }

@@ -12,10 +12,12 @@ public class TransactionTestRun extends ScalabilityTestRun {
         super(subject, numberOfObjects, minThreads, maxThreads);
     }
 
+    @Override
     protected String name() {
         return "Transaction Test";
     }
 
+    @Override
     protected void prepare() {
         super.prepare();
         halfTheObjects = numberOfObjects / 2;
@@ -32,6 +34,7 @@ public class TransactionTestRun extends ScalabilityTestRun {
     * Inserts records from id 1000000 to id 1499999.
     * Every time 500000 operations have completed, all ranges are shifted up by 500000.
     */
+    @Override
     protected void executeOperation(Object connection, long operationSequence) {
         PrevaylerRecord recordToInsert = new PrevaylerRecord(numberOfObjects + operationSequence);
         long idToDelete = spreadId(operationSequence);

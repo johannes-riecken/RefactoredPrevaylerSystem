@@ -112,6 +112,7 @@ abstract class ScalabilityTestRun {
 
     private void startThread(final long startingOperation, final int operationIncrement) {
         (new Thread() {
+            @Override
             public void run() {
                 try {
                     Object connection = acquireConnection();

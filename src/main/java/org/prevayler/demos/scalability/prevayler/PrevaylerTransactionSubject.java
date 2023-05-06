@@ -13,6 +13,7 @@ public class PrevaylerTransactionSubject extends PrevaylerScalabilitySubject {
     }
 
 
+    @Override
     public Object createTestConnection() {
         return new PrevaylerTransactionConnection(prevayler);
     }

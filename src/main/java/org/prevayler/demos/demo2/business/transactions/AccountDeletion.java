@@ -19,6 +19,7 @@ public class AccountDeletion extends BankTransaction {
 //		return null;
 //	}
 
+    @Override
     protected Object executeAndQuery(Bank bank) throws Bank.AccountNotFound {
         bank.deleteAccount(_accountNumber);
         return null;

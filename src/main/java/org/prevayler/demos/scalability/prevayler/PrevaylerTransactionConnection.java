@@ -11,6 +11,7 @@ class PrevaylerTransactionConnection implements TransactionConnection {
         this.prevayler = prevayler;
     }
 
+    @Override
     public void performTransaction(PrevaylerRecord recordToInsert, PrevaylerRecord recordToUpdate, long idToDelete) {
         try {
 

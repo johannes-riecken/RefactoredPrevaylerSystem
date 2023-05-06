@@ -70,12 +70,14 @@ public class PrevaylerImpl implements Prevayler {
         _ignoreRuntimeExceptions = false;
     }
 
+    @Override
     public Object prevalentSystem() { return _prevalentSystem; }
 
 
     //public Clock clock() { return _clock; }
 
 
+    @Override
     public void execute(Transaction transaction) {
         publish((Transaction)deepCopy(transaction));
     }
@@ -86,6 +88,7 @@ public class PrevaylerImpl implements Prevayler {
     }
 
 
+    @Override
     public Object execute(Query sensitiveQuery) throws Exception {
         //synchronized (_prevalentSystem) {
             //return sensitiveQuery.query(_prevalentSystem, clock().time());
@@ -94,6 +97,7 @@ public class PrevaylerImpl implements Prevayler {
     }
 
 
+    @Override
     public Object execute(TransactionWithQuery transactionWithQuery) throws Exception {
         TransactionWithQuery copy = (TransactionWithQuery)deepCopy(transactionWithQuery);
         TransactionWithQueryExecuter executer = new TransactionWithQueryExecuter(copy);
@@ -109,6 +113,7 @@ public class PrevaylerImpl implements Prevayler {
 //	}
 
 
+    @Override
     public void close() throws IOException { _publisher.close(); }
 
 
@@ -177,6 +182,7 @@ public class PrevaylerImpl implements Prevayler {
         public Subscriber(){
 
         }
+        @Override
         public void receive(Transaction transaction) {
 //			synchronized (_prevalentSystem) {
                 _systemVersion++;

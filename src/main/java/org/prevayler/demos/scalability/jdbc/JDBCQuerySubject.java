@@ -6,6 +6,7 @@ public class JDBCQuerySubject extends JDBCScalabilitySubject {
         super(jdbcDriverClassName, connectionURL, user, password);
     }
 
+    @Override
     public Object createTestConnection() {
         return new JDBCQueryConnection(createConnection());
     }

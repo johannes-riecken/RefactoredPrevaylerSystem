@@ -9,6 +9,7 @@ abstract class RobustAction extends AbstractAction {
         super(name);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         try {
             action();

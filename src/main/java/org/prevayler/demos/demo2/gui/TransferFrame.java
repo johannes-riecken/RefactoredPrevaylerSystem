@@ -27,6 +27,7 @@ class TransferFrame extends AccountFrame {
         setBounds(50,50,200,194);
     }
 
+    @Override
     protected void addFields(Box fieldBox) {
         fieldBox.add(labelContainer("From Account"));
         sourceField = new JTextField();
@@ -44,6 +45,7 @@ class TransferFrame extends AccountFrame {
         fieldBox.add(amountField);
     }
 
+    @Override
     protected void addButtons(JPanel buttonPanel) {
         buttonPanel.add(new JButton(new OKAction()));
     }
@@ -54,6 +56,7 @@ class TransferFrame extends AccountFrame {
             super("OK");
         }
 
+        @Override
         public void action() throws Exception {
             long destinationNumber = parse(destinationField.getText());
             long amount = parse(amountField.getText());

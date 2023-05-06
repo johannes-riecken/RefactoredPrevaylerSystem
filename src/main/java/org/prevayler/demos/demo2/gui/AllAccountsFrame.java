@@ -50,16 +50,19 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
         return (Bank)_prevayler.prevalentSystem();
     }
 
+    @Override
     public void accountCreated(Account a) { //Implements BankListener.
         a.addAccountListener(this);
         refreshAccounts();
     }
 
+    @Override
     public void accountDeleted(Account a) { //Implements BankListener.
         a.removeAccountListener(this);
         refreshAccounts();
     }
 
+    @Override
     public void accountChanged() { //Implements AccountListener.
         refreshAccounts();
     }
@@ -80,6 +83,7 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
             super("Create");
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             new NewAccountFrame(_prevayler, getDesktopPane());
         }
@@ -98,10 +102,12 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
             this.setEnabled(accountList.getSelectedValue() != null);
         }
 
+        @Override
         public void valueChanged(ListSelectionEvent event) {
             refreshEnabled();
         }
 
+        @Override
         protected void action() throws Exception {
             action((Account)accountList.getSelectedValue());
         }
@@ -115,6 +121,7 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
             super("Edit");
         }
 
+        @Override
         void action(Account account) {
             new AccountEditFrame(account, _prevayler, getDesktopPane());
         }
@@ -126,6 +133,7 @@ class AllAccountsFrame extends JInternalFrame implements BankListener, AccountLi
             super("Delete");
         }
 
+        @Override
         void action(Account account) throws Exception {
             int option = JOptionPane.showConfirmDialog(null, "Delete selected account?", "Account Deletion", JOptionPane.YES_NO_OPTION);
             if (option != JOptionPane.YES_OPTION) return;

@@ -49,6 +49,7 @@ public abstract class AbstractPublisher implements TransactionPublisher {
     }
 
     //public synchronized void removeSubscriber(TransactionSubscriber subscriber) {
+     @Override
      public void removeSubscriber(TransactionSubscriber subscriber) {
         _subscribers.remove(subscriber);
     }

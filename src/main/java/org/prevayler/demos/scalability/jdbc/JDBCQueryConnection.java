@@ -18,11 +18,13 @@ class JDBCQueryConnection extends JDBCScalabilityConnection implements QueryConn
     }
 
 
+    @Override
     protected String table() {
         return "QUERY_TEST";
     }
 
 
+    @Override
     public List queryByName(String name) {
         ArrayList list = new ArrayList();
         try {

@@ -13,6 +13,7 @@ class NewAccountFrame extends AccountFrame {
         setBounds(50,50,240,114);
     }
 
+    @Override
     protected void addButtons(JPanel buttonPanel) {
         buttonPanel.add(new JButton(new OKAction()));
     }
@@ -23,6 +24,7 @@ class NewAccountFrame extends AccountFrame {
             super("OK");
         }
 
+        @Override
         protected void action() throws Exception {
             _prevayler.execute(new AccountCreation(holderText()));
             dispose();

@@ -28,10 +28,12 @@ abstract class JDBCScalabilitySubject implements ScalabilityTestSubject {
         this.password = password;
     }
 
+    @Override
     public String name() {
         return "JDBC";
     }
 
+    @Override
     public void replaceAllRecords(int records) {
         ((JDBCScalabilityConnection)createTestConnection()).replaceAllRecords(records);
     }

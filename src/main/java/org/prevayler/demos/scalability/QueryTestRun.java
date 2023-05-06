@@ -7,11 +7,13 @@ public class QueryTestRun extends ScalabilityTestRun {
     }
 
 
+    @Override
     protected String name() {
         return "Query Test";
     }
 
 
+    @Override
     protected void executeOperation(Object connection, long operationSequence) {
 
         ((QueryConnection)connection).queryByName("NAME" + (operationSequence % 10000));

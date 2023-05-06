@@ -18,6 +18,7 @@ public class Deposit extends AccountTransaction {
 //		account.deposit(_amount, timestamp);
 //	}
 
+    @Override
     public void executeAndQuery(Account account) throws Account.InvalidAmount {
         account.deposit(_amount);
     }

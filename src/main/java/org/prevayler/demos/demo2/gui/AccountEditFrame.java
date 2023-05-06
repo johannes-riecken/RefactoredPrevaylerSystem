@@ -37,6 +37,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
         setBounds(50,50,306,300);
     }
 
+    @Override
     protected void addFields(Box fieldBox) {
         super.addFields(fieldBox);
 
@@ -53,6 +54,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
         fieldBox.add(balanceField);
     }
 
+    @Override
     protected void addButtons(JPanel buttonPanel) {
         buttonPanel.add(new JButton(new DepositAction()));
         buttonPanel.add(new JButton(new WithdrawAction()));
@@ -65,6 +67,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
             super("Deposit...");
         }
 
+        @Override
         public void action() throws Exception {
             Number amount = enterAmount("Deposit");
             if (amount == null) return;
@@ -78,6 +81,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
             super("Withdraw...");
         }
 
+        @Override
         public void action() throws Exception {
             Number amount = enterAmount("Withdrawal");
             if (amount == null) return;
@@ -97,11 +101,13 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
             super("Transfer...");
         }
 
+        @Override
         public void action() {
             new TransferFrame(account, _prevayler, getDesktopPane());
         }
     }
 
+    @Override
     public void accountChanged() {  //Implements AccountListener.
         holderField.setText(account.holder());
         historyList.setListData(account.transactionHistory().toArray());
@@ -109,6 +115,7 @@ class AccountEditFrame extends AccountFrame implements AccountListener {
     }
 
     private class HolderListener extends FocusAdapter {
+        @Override
         public void focusLost(FocusEvent e) {
             if (holderText().equals(account.holder())) return;
             try {

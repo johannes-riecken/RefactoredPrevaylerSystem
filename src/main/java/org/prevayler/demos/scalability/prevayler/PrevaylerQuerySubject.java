@@ -15,6 +15,7 @@ public class PrevaylerQuerySubject extends PrevaylerScalabilitySubject {
     }
 
 
+    @Override
     public Object createTestConnection() {
         return new PrevaylerQueryConnection((QuerySystem)prevayler.prevalentSystem());
     }

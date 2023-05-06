@@ -11,9 +11,11 @@ abstract class PrevaylerScalabilitySubject implements ScalabilityTestSubject {
     {System.gc();}
 
 
+    @Override
     public String name() { return "Prevayler"; }
 
 
+    @Override
     public void replaceAllRecords(int records) {
         try {
 

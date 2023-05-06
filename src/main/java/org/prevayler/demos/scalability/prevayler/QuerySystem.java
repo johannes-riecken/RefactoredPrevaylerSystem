@@ -20,6 +20,7 @@ class QuerySystem implements ScalabilitySystem {
     }
 
 
+    @Override
     public void replaceAllRecords(RecordIterator newRecords) {
         recordsByName.clear();
 

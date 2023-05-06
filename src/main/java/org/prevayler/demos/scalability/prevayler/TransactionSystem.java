@@ -23,6 +23,7 @@ class TransactionSystem implements ScalabilitySystem {
         return recordsById.put(key, newRecord);
     }
 
+    @Override
     public void replaceAllRecords(RecordIterator newRecords) {
         recordsById.clear();
 

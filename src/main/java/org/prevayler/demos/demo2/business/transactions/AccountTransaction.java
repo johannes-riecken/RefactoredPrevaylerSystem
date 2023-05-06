@@ -22,6 +22,7 @@ public abstract class AccountTransaction extends BankTransaction {
 //
 //	protected abstract void executeAndQuery(Account account, Date timestamp) throws Exception;
 
+    @Override
     protected Object executeAndQuery(Bank bank) throws Exception {
         executeAndQuery(bank.findAccount(_accountNumber));
         return null;

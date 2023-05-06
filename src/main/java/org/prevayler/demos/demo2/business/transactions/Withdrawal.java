@@ -19,6 +19,7 @@ public class Withdrawal extends AccountTransaction {
 //		account.withdraw(_amount, timestamp);
 //	}
 
+    @Override
     public void executeAndQuery(Account account) throws Account.InvalidAmount {
         account.withdraw(_amount);
     }

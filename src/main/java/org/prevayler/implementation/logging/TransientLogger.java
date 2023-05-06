@@ -44,6 +44,7 @@ public class TransientLogger implements TransactionLogger {
 //		}
 //	}
 
+    @Override
     public void log(Transaction transaction) {
         if (!_initialTransactionInitialized) throw new IllegalStateException("TransactionLogger.update() has to be called at least once before TransactionLogger.log().");
 
@@ -57,6 +58,7 @@ public class TransientLogger implements TransactionLogger {
     }
 
     //public synchronized void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
+    @Override
     public void update(TransactionSubscriber subscriber, long initialTransaction) throws IOException {
         if (!_initialTransactionInitialized) {
             _initialTransactionInitialized = true;
@@ -76,6 +78,7 @@ public class TransientLogger implements TransactionLogger {
         }
     }
 
+    @Override
     public void close() {}
 
 }

@@ -59,6 +59,7 @@ public class CentralPublisher extends AbstractPublisher {
 
 
 
+    @Override
     public void publish(Transaction transaction) {
 //		synchronized (_pendingSubscriptionMonitor) {  //Blocks all new publications until the subscription is over.
 //			synchronized (_pendingPublicationsMonitor) {
@@ -146,6 +147,7 @@ public class CentralPublisher extends AbstractPublisher {
 //	}
 
 
+    @Override
     public void notifySubscribers(Transaction transaction) {
         try {
 
@@ -155,6 +157,7 @@ public class CentralPublisher extends AbstractPublisher {
         }
     }
 
+    @Override
     public void addSubscriber(TransactionSubscriber subscriber, long initialTransaction) throws IOException, ClassNotFoundException {
         //synchronized (_pendingSubscriptionMonitor) {
             //while (_pendingPublications != 0) Thread.yield();
@@ -165,6 +168,7 @@ public class CentralPublisher extends AbstractPublisher {
     }
 
 
+    @Override
     public void close() throws IOException { _logger.close(); }
 
 }

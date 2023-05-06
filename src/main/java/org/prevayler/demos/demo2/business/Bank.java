@@ -26,6 +26,7 @@ public class Bank implements java.io.Serializable {
         List accounts = new ArrayList(accountsByNumber.values());
 
         Collections.sort(accounts, new Comparator() {
+            @Override
             public int compare(Object acc1, Object acc2) {
                 return ((Account)acc1).number() < ((Account)acc2).number() ? -1	: 1;
             }

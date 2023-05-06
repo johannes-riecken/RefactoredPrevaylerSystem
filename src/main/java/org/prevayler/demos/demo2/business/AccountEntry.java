@@ -21,6 +21,7 @@ public class AccountEntry implements Serializable {
             //this.timestamp = timestamp;
         }
 
+        @Override
         public String toString() {
             //return timestampString() + "      Amount: " + amount;
            return "      Amount: " + amount;

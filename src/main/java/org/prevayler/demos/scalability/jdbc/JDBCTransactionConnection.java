@@ -20,11 +20,13 @@ class JDBCTransactionConnection extends JDBCScalabilityConnection implements Tra
     }
 
 
+    @Override
     protected String table() {
         return "TRANSACTION_TEST";
     }
 
 
+    @Override
     public void performTransaction(PrevaylerRecord recordToInsert, PrevaylerRecord recordToUpdate, long idToDelete) {
         insert(recordToInsert);
         update(recordToUpdate);
