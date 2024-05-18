@@ -79,8 +79,8 @@
                 <version>3.13.0</version>
                 <configuration>
                     <!-- check latest readme on https://www.eclipse.org/aspectj/ for supported Java versions -->
-                    <source>15</source>
-                    <target>15</target>
+                    <source>22</source>
+                    <target>22</target>
                 </configuration>
             </plugin>
             <plugin>
