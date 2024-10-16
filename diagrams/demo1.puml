@@ -1,0 +1,34 @@
+@startuml
+
+class Main {
+    +main(String[] args) : void
+    -printMessage() : void
+}
+
+class NumberKeeper {
+    -numbers : List
+    +keep(int nextNumber) : void
+    +numbers() : List
+    +lastNumber() : int
+}
+
+class NumberStorageTransaction {
+    -_numberToKeep : int
+    +NumberStorageTransaction(int numberToKeep)
+    +executeOn(Object prevalentSystem, Date ignored) : void
+}
+
+class PrimeCalculator {
+    -_prevayler : Prevayler
+    -_numberKeeper : NumberKeeper
+    +PrimeCalculator(Prevayler prevayler)
+    +start() : void
+    -isPrime(int candidate) : boolean
+}
+
+Main --> NumberKeeper
+NumberKeeper --> NumberStorageTransaction
+PrimeCalculator --> NumberKeeper
+PrimeCalculator --> NumberStorageTransaction
+
+@enduml
