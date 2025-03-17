@@ -1,0 +1,56 @@
+@startuml
+
+package org.prevayler.demos.demo2.business {
+    class Account {
+        - long number
+        - String holder
+        - long balance
+        - List transactionHistory
+        - transient Set listeners
+        + Account(long number, String holder) throws InvalidHolder
+        + long number()
+        + String toString()
+        + String numberString()
+        + static String numberString(long number)
+        + String holder()
+        + void holder(String holder) throws InvalidHolder
+        + long balance()
+        + void deposit(long amount) throws InvalidAmount
+        + void withdraw(long amount) throws InvalidAmount
+        + List transactionHistory()
+        + void addAccountListener(AccountListener listener)
+        + void removeAccountListener(AccountListener listener)
+        + class InvalidAmount extends Exception
+        + class InvalidHolder extends Exception
+    }
+
+    class AccountEntry {
+        - long amount
+        + AccountEntry(long amount)
+        + String toString()
+    }
+
+    interface AccountListener {
+        + void accountChanged()
+    }
+
+    class Bank {
+        - long nextAccountNumber
+        - Map accountsByNumber
+        - transient BankListener bankListener
+        + Account createAccount(String holder) throws Account.InvalidHolder
+        + void deleteAccount(long number) throws AccountNotFound
+        + List accounts()
+        + void setBankListener(BankListener bankListener)
+        + Account findAccount(long number) throws AccountNotFound
+        + void transfer(long sourceNumber, long destinationNumber, long amount) throws AccountNotFound, Account.InvalidAmount
+        + class AccountNotFound extends Exception
+    }
+
+    interface BankListener {
+        + void accountCreated(Account account)
+        + void accountDeleted(Account account)
+    }
+}
+
+@enduml
